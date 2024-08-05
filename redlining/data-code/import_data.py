@@ -12,13 +12,16 @@ columns = ['year', 'sample', 'serial', 'hhwt', 'stateicp', 'statefip', 'countyic
 
 with gzip.open('data/input/usa_00004.dat.gz', 'rb') as f:
     df = pd.read_fwf(f, colspecs = colspecs, header = None, nrows = 3000000)
+    print('census data loaded')
 df.columns = columns
 
 ed_census_xwalk = pd.read_csv('data/input/enumdist_centract_xwalk.csv')
+print('crosswalk loaded')
 
 ipums = df.merge(ed_census_xwalk, how= 'right', on = ['enumdist', 'countyicp', 'stateicp'])
+print('merge complete')
 ipums = ipums.dropna(subset=['ownershp'])
 
 ipums.to_csv('data/output/ipums.csv')
 print('csv created')
-print(ipums.size())
+print(ipums.size)

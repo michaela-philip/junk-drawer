@@ -11,7 +11,7 @@ colspecs = [(0, 4), (4, 10), (10, 18), (18, 28), (28, 30), (30, 32), (32, 36), (
 columns = ['year', 'sample', 'serial', 'hhwt', 'stateicp', 'statefip', 'countyicp', 'gq', 'ownershp', 'ownershpd', 'enumdist', 'pernum', 'perwt', 'race', 'raced', 'occ', 'incwage', 'versionhist', 'histid']
 
 with gzip.open('data/input/usa_00004.dat.gz', 'rb') as f:
-    df = pd.read_fwf(f, colspecs = colspecs, header = None, nrows = 3000000)
+    df = pd.read_fwf(f, colspecs = colspecs, header = None)
     print('census data loaded')
 df.columns = columns
 

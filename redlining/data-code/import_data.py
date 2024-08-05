@@ -24,4 +24,4 @@ ipums = ipums.dropna(subset=['ownershp'])
 
 ipums.to_csv('data/output/ipums.csv')
 print('csv created')
-print(ipums.size)
+print(ipums.shape)

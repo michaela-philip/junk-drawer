@@ -21,9 +21,9 @@ with gzip.open('data/input/usa_00004.dat.gz', 'rb') as f:
 
 ipums = pd.concat(ipums_list)
 print('merge complete')
-print('size is', ipums.size)
+print('size is', ipums.shape)
 
-ipums_agg = ipums.groupby(['stateicp', 'countyicp']).agg({'ownershp': 'mean', 'gisjoin': 'first', 'perwt': 'mean','incwage': 'mean'}).reset_index()
+ipums_agg = ipums.groupby(['stateicp', 'countyicp']).agg({'ownershp': 'mean', 'gisjoin': 'first', 'incwage': 'mean'}).reset_index()
 ipums_agg.to_csv('data/output/ipums_agg.csv')
 print('aggregate csv created')
 print(ipums_agg.shape)

@@ -1,4 +1,4 @@
-###first attempt but census data is way to large to read in regularly###
+###first attempt but census data is way too large to read in regularly###
 
 
 import pandas as pd

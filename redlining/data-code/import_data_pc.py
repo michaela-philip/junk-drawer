@@ -1,3 +1,6 @@
+###attempt written for running on desktop with census data fully unzipped###
+###still too big###
+
 import pandas as pd
 print('pandas in')
 import numpy as np

@@ -23,20 +23,7 @@ ipums = pd.concat(ipums_list)
 print('merge complete')
 print('size is', ipums.shape)
 
-ipums_agg = ipums.groupby(['stateicp', 'countyicp']).agg({'ownershp': 'mean', 'gisjoin': 'first', 'incwage': 'mean'}).reset_index()
+ipums_agg = ipums.groupby('gisjoin', 'stateicp', 'countyicp').agg({'ownershp': 'mean', 'incwage': 'mean'}).reset_index()
 ipums_agg.to_csv('data/output/ipums_agg.csv')
 print('aggregate csv created')
 print(ipums_agg.shape)
-
-# ipums = pd.DataFrame()
-
-# with gzip.open('data/input/usa_00004.dat.gz', 'rb') as f:
-#     for chunk in pd.read_fwf(f, colspecs = colspecs, header = None, chunksize=100000, nrows = 3000000):
-#         chunk.columns = columns
-#         chunk['ownershp'] = np.where(chunk['ownershp'] == 1, 1, 0)
-#         ipums_inter = chunk.merge(ed_census_xwalk, how= 'right', on = ['enumdist', 'countyicp', 'stateicp'])
-#         print('merge complete')
-#         print('size is', ipums.size)
-#         ipums_inter = ipums_inter.dropna(subset=['ownershp'])
-#         ipums = pd.concat([ipums, ipums_inter])
-#         del chunk

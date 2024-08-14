@@ -1,3 +1,6 @@
+###first attempt but census data is way to large to read in regularly###
+
+
 import pandas as pd
 print('pandas in')
 import numpy as np
@@ -10,7 +13,7 @@ colspecs = [(0, 4), (4, 10), (10, 18), (18, 28), (28, 30), (30, 32), (32, 36), (
 columns = ['year', 'sample', 'serial', 'hhwt', 'stateicp', 'statefip', 'countyicp', 'gq', 'ownershp', 'ownershpd', 'enumdist', 'pernum', 'perwt', 'race', 'raced', 'occ', 'incwage', 'versionhist', 'histid']
 
 with gzip.open('data/input/usa_00004.dat.gz', 'rb') as f:
-    df = pd.read_fwf(f, colspecs = colspecs, header = None)
+    df = pd.read_fwf(f, colspecs = colspecs, header = None, nrows = 3000000)
     print('census data loaded')
 df.columns = columns
 df['ownershp'] = np.where(df['ownershp'] == 1, 1, 0)

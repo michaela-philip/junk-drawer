@@ -23,7 +23,7 @@ ipums = pd.concat(ipums_list)
 print('merge complete')
 print('size is', ipums.shape)
 
-ipums_agg = ipums.groupby('gisjoin', 'stateicp', 'countyicp').agg({'ownershp': 'mean', 'incwage': 'mean'}).reset_index()
+ipums_agg = ipums.groupby(['gisjoin', 'stateicp', 'countyicp']).agg({'ownershp': 'mean', 'incwage': 'mean'}).reset_index()
 ipums_agg.to_csv('data/output/ipums_agg.csv')
 print('aggregate csv created')
 print(ipums_agg.shape)

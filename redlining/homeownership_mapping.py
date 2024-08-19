@@ -42,8 +42,9 @@ ax3.set_title('Grade C')
 ax4.set_title('Grade D')
 plt.subplots_adjust(hspace=0.4)
 fig.suptitle('Home Ownership Rates by HOLC Grade')
-fig.savefig('data/output/Home Onwnership Histogram.png')
+fig.savefig('data/output/Home Ownership Histogram.png')
 
+#TODO
 #actually map out the data
 counties = gpd.read_file('data/input/US County Boundaries/us-county-boundaries.shp')
 counties.to_crs('ESRI:102003')

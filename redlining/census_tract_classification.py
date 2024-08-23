@@ -2,15 +2,15 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 
-holc = gpd.read_file('data/input/mappinginequality.json')
+holc = gpd.read_file('redlining/data/input/mappinginequality.json')
 holc = holc.to_crs('ESRI:102003')
 holc['grade']  = np.where(holc['grade'] == 'C ', 'C', holc['grade'])
 holc['grade']  = np.where(holc['grade'] == 'A ', 'A', holc['grade'])
 
-nhgis = gpd.read_file('data/input/Census Tract 1940/US_tract_1940_conflated.shp')
+nhgis = gpd.read_file('redlining/data/input/Census Tract 1940/US_tract_1940_conflated.shp')
 nhgis.rename(columns={'GISJOIN': 'gisjoin'}, inplace=True)
 
-ipums = pd.read_csv('data/output/ipums_agg.csv')
+ipums = pd.read_csv('redlining/data/output/ipums_agg.csv')
 ipums.drop(ipums.columns[0], axis=1, inplace=True)
 
 nhgis_ipums = nhgis.merge(ipums, on = 'gisjoin')
@@ -49,7 +49,7 @@ def classify_ct(data, holc, threshold):
     tract['pct_D'] = tract['area_D'] / tract['area']
 
     #function to classify each tract as one of 10 primary/secondary grades
-    def assign_grade(row):
+    def assign_grade_10(row):
         # Only or mainly A
         if row['pct_A'] > max(row['pct_B'], row['pct_C'], row['pct_D']):
             return 'A'
@@ -84,11 +84,27 @@ def classify_ct(data, holc, threshold):
             print(f"Tract {row['TRACT']} doesn't fit a category because A = {row['pct_A']}, B = {row['pct_B']}, C = {row['pct_C']}, D = {row['pct_D']}, U = {row['pct_U']}")
             return None
     
-    #calculate grades for each tract
-    tract['grade'] = tract.apply(assign_grade, axis = 1)
+    #function to classify asone of 4 primary grades
+    def assign_grade_4(row):
+        # Only or mainly A
+        if row['pct_A'] > max(row['pct_B'], row['pct_C'], row['pct_D']):
+            return 'A'
+        if row['pct_B'] > max(row['pct_A'], row['pct_C'], row['pct_D']):
+            return 'B'
+        if row['pct_C'] > max(row['pct_A'], row['pct_B'], row['pct_D']):
+            return 'C'
+        if row['pct_D'] > max(row['pct_A'], row['pct_B'], row['pct_C']):
+            return 'D'
+        else:
+            print(f"Tract {row['TRACT']} doesn't fit a category because A = {row['pct_A']}, B = {row['pct_B']}, C = {row['pct_C']}, D = {row['pct_D']}, U = {row['pct_U']}")
+            return None
 
+    #calculate grades for each tract
+    tract['grade_10'] = tract.apply(assign_grade_10, axis = 1)
+    tract['grade_4'] = tract.apply(assign_grade_4, axis = 1)
     return tract
 
 tract = classify_ct(nhgis_ipums, holc, 0.05)
 
-tract_by_grade = tract.groupby('grade')['ownershp'].agg(['min', 'max', 'mean', 'median']).reset_index()
+tract_by_grade_10 = tract.groupby('grade_10')['ownershp'].agg(['min', 'max', 'mean', 'median']).reset_index()
+tract_by_grade_4 = tract.groupby('grade_4')['ownershp'].agg(['min', 'max', 'mean', 'median']).reset_index()

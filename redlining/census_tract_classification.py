@@ -1,6 +1,7 @@
 import pandas as pd
 import geopandas as gpd
 import numpy as np
+import matplotlib.pyplot as plt
 
 holc = gpd.read_file('redlining/data/input/mappinginequality.json')
 holc = holc.to_crs('ESRI:102003')
@@ -107,4 +108,18 @@ def classify_ct(data, holc, threshold):
 tract = classify_ct(nhgis_ipums, holc, 0.05)
 
 tract_by_grade_10 = tract.groupby('grade_10')['ownershp'].agg(['min', 'max', 'mean', 'median']).reset_index()
-tract_by_grade_4 = tract.groupby('grade_4')['ownershp'].agg(['min', 'max', 'mean', 'median']).reset_index()
+# tract_by_grade_4 = tract.groupby('grade_4')['ownershp'].agg(['min', 'max', 'mean', 'median']).reset_index()
+
+unique_grades = sorted(tract['grade_10'].unique())
+
+fig, axes = plt.subplots(2, 5, figsize = (18, 10), sharey = True, sharex = True)
+axes = axes.flatten()
+for ax, grade in zip(axes, unique_grades):
+    tract[tract['grade_10'] == grade]['ownershp'].hist(ax=ax)
+    ax.set_title(f'Grade {grade}')
+
+plt.subplots_adjust(hspace=0.4)
+fig.suptitle('Home Ownership Rates by HOLC Grade')
+fig.supylabel('Tracts')
+plt.show()
+fig.savefig('output/ownership_hist_10.jpeg', dpi = 300)

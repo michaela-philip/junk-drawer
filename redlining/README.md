@@ -1,3 +1,3 @@
 # redlining
 
-This subfolder holds code to verify home ownership rates in redlined and nonredlined areas. 
+This subfolder holds code to verify initial assumptions relating to a project on redlining and environmental hazards. 

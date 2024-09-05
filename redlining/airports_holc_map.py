@@ -22,4 +22,5 @@ holc_airports = holc_airports[holc_airports['type'] != 'heliport'].reset_index()
 holc_airports['grade'].hist(legend = True)
 plt.savefig('data/output/holc_airport_grades')
 
-#most of these airports are closed and the data is from a random site so nothing to hang a hat on but good sanity check that there is overlap between holc maps and airports and they are mostly in C and D areas
+#most of these airports are closed and the data is from a random site so nothing to hang a hat on 
+# but good sanity check that there is overlap between holc maps and airports and they are mostly in C and D areas

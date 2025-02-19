@@ -1,0 +1,1199 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Keep aspect ratio if custom image width or height is specified
+    \setkeys{Gin}{keepaspectratio}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{soul}      % strikethrough (\st) support for pandoc >= 3.0.0
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \makeatletter
+    \newsavebox\pandoc@box
+    \newcommand*\pandocbounded[1]{%
+      \sbox\pandoc@box{#1}%
+      % scaling factors for width and height
+      \Gscale@div\@tempa\textheight{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+      \Gscale@div\@tempb\linewidth{\wd\pandoc@box}%
+      % select the smaller of both
+      \ifdim\@tempb\p@<\@tempa\p@
+        \let\@tempa\@tempb
+      \fi
+      % scaling accordingly (\@tempa < 1)
+      \ifdim\@tempa\p@<\p@
+        \scalebox{\@tempa}{\usebox\pandoc@box}%
+      % scaling not needed, use as it is
+      \else
+        \usebox{\pandoc@box}%
+      \fi
+    }
+    \makeatother
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{ps1}
+    
+    
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@ges}{\let\PY@bf=\textbf\let\PY@it=\textit}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+    \author{Michaela Philip - Emory University}
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \section{Problem Set 1 - Suggested
+Solutions}\label{problem-set-1---suggested-solutions}
+
+%     \subsection{Michaela Philip - Emory
+% University}\label{michaela-philip---emory-university}
+
+    \subsection{1. Sum Stats and Institutional
+Details}\label{sum-stats-and-institutional-details}
+
+    \subsubsection{(a) Do some brief diligence on the products and industry.
+What do you anticipate may be some important determinants of demand,
+substitution, and
+pricing?}\label{a-do-some-brief-diligence-on-the-products-and-industry.-what-do-you-anticipate-may-be-some-important-determinants-of-demand-substitution-and-pricing}
+
+    Answers may vary. Students may include information on conditions treated
+by the medications, the prevalence of these conditions, or relevant
+(perceived or otherwise) differences between the products. Responses may
+also include general information on popularity or use trends for the
+products.
+
+    \subsubsection{(b) Complete the table above by adding columns for the
+mean: market share, unit price, price/100 tablets, and unit wholesale
+price. Interpret any notable patterns you see in the summary
+statistics.}\label{b-complete-the-table-above-by-adding-columns-for-the-mean-market-share-unit-price-price100-tablets-and-unit-wholesale-price.-interpret-any-notable-patterns-you-see-in-the-summary-statistics.}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{numpy}\PY{+w}{ }\PY{k}{as}\PY{+w}{ }\PY{n+nn}{np} 
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{pandas}\PY{+w}{ }\PY{k}{as}\PY{+w}{ }\PY{n+nn}{pd} 
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{linearmodels}\PY{n+nn}{.}\PY{n+nn}{iv}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{IV2SLS}
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api}\PY{+w}{ }\PY{k}{as}\PY{+w}{ }\PY{n+nn}{sm}
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api}\PY{+w}{ }\PY{k}{as}\PY{+w}{ }\PY{n+nn}{smf}
+\PY{n}{otc} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OTC\PYZus{}Sales.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} calculate total sales for each store\PYZhy{}week pair}
+\PY{n}{product\PYZus{}numbers} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{]}
+\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{otc}\PY{p}{[}\PY{p}{[}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sales\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{number}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{number} \PY{o+ow}{in} \PY{n}{product\PYZus{}numbers}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} reshape to make it easier to work with}
+\PY{n}{otc} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{wide\PYZus{}to\PYZus{}long}\PY{p}{(}\PY{n}{otc}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                      \PY{n}{i} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{store}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{j} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\PY{n}{summary} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}
+    \PY{n}{price} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+    \PY{n}{total\PYZus{}sales} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+    \PY{n}{wholesale\PYZus{}price} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} add given information so that table is easy to read}
+\PY{n}{brand\PYZus{}names} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+m+mi}{1}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tylenol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+m+mi}{2}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tylenol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+m+mi}{3}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tylenol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+    \PY{l+m+mi}{4}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Advil}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+    \PY{l+m+mi}{5}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Advil}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+    \PY{l+m+mi}{6}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Advil}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+    \PY{l+m+mi}{7}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bayer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+    \PY{l+m+mi}{8}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bayer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+    \PY{l+m+mi}{9}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bayer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+    \PY{l+m+mi}{10}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Store Brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+    \PY{l+m+mi}{11}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Store Brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+\PY{n}{size} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+m+mi}{1}\PY{p}{:} \PY{l+m+mi}{25}\PY{p}{,} 
+    \PY{l+m+mi}{2}\PY{p}{:} \PY{l+m+mi}{50}\PY{p}{,} 
+    \PY{l+m+mi}{3}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+    \PY{l+m+mi}{4}\PY{p}{:} \PY{l+m+mi}{25}\PY{p}{,}
+    \PY{l+m+mi}{5}\PY{p}{:}  \PY{l+m+mi}{50}\PY{p}{,}
+    \PY{l+m+mi}{6}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+    \PY{l+m+mi}{7}\PY{p}{:} \PY{l+m+mi}{25}\PY{p}{,} 
+    \PY{l+m+mi}{8}\PY{p}{:} \PY{l+m+mi}{50}\PY{p}{,}
+    \PY{l+m+mi}{9}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+    \PY{l+m+mi}{10}\PY{p}{:} \PY{l+m+mi}{50}\PY{p}{,} 
+    \PY{l+m+mi}{11}\PY{p}{:} \PY{l+m+mi}{100}
+\PY{p}{\PYZcb{}}
+\PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{brand\PYZus{}names}\PY{p}{)}
+\PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{size}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} calculate new variables}
+\PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{market\PYZus{}share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{p}{(}\PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}per\PYZus{}100}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+
+\PY{c+c1}{\PYZsh{} reorder columns and round for clarity}
+\PY{n}{table\PYZus{}1} \PY{o}{=} \PY{n}{summary}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{market\PYZus{}share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}per\PYZus{}100}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wholesale\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{table\PYZus{}1}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+    product        brand  size  market\_share  price  price\_per\_100  \textbackslash{}
+0         1      Tylenol    25          0.14   3.43          13.71
+1         2      Tylenol    50          0.18   4.95           9.89
+2         3      Tylenol   100          0.12   7.03           7.03
+3         4        Advil    25          0.12   2.97          11.88
+4         5        Advil    50          0.08   5.15          10.29
+5         6        Advil   100          0.04   8.16           8.16
+6         7        Bayer    25          0.04   2.67          10.70
+7         8        Bayer    50          0.03   3.62           7.24
+8         9        Bayer   100          0.08   3.97           3.97
+9        10  Store Brand    50          0.09   1.94           3.87
+10       11  Store Brand   100          0.08   4.43           4.43
+
+    wholesale\_price
+0              2.19
+1              3.68
+2              5.77
+3              2.03
+4              3.63
+5              6.10
+6              1.85
+7              2.44
+8              3.71
+9              0.91
+10             1.91
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \subsection{2. Logit Demand Estimation}\label{logit-demand-estimation}
+
+\subsubsection{Consider the utility function for product j in store-week
+t for consumer
+i:}\label{consider-the-utility-function-for-product-j-in-store-week-t-for-consumer-i}
+
+\subsubsection{\$ u\_\{ijt\} = −αp\_\{jt\} + X\_\{jt\}β + ξ\_\{jt\} +
+ϵ\_\{ijt\} \$ (1)}\label{u_ijt-ux3b1p_jt-x_jtux3b2-ux3be_jt-ux3f5_ijt-1}
+
+\subsubsection{\texorpdfstring{where \(p_{jt}\) is price, \(X_{jt}\) are
+other observed product characteristics, \(ξ_{jt}\) are unobserved
+product characteristics, and \(ϵ_{ijt}\) is an i.i.d. EV1 logit
+consumer-product-market
+unobservable.}{where p\_\{jt\} is price, X\_\{jt\} are other observed product characteristics, ξ\_\{jt\} are unobserved product characteristics, and ϵ\_\{ijt\} is an i.i.d. EV1 logit consumer-product-market unobservable.}}\label{where-p_jt-is-price-x_jt-are-other-observed-product-characteristics-ux3be_jt-are-unobserved-product-characteristics-and-ux3f5_ijt-is-an-i.i.d.-ev1-logit-consumer-product-market-unobservable.}
+
+\subsubsection{Estimate this model:}\label{estimate-this-model}
+
+    \subsubsection{(a) Using OLS with price, promotion, and an indicator for
+whether the product is a ``store brand'' as product
+characteristics.}\label{a-using-ols-with-price-promotion-and-an-indicator-for-whether-the-product-is-a-store-brand-as-product-characteristics.}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} need shares for each observation}
+\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outside\PYZus{}share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} indicator for store brand}
+\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{store\PYZus{}brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{size}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} create dependent variable: ln(share \PYZhy{} outside\PYZus{}share)}
+\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ln\PYZus{}share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outside\PYZus{}share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{model} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ln\PYZus{}share \PYZti{} price + prom + store\PYZus{}brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{otc}\PY{p}{)}
+\PY{n}{logit\PYZus{}modela} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\PY{n}{logit\PYZus{}modela}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{6}{}
+    
+    \begin{center}
+\begin{tabular}{lclc}
+\toprule
+\textbf{Dep. Variable:}    &    ln\_share     & \textbf{  R-squared:         } &     0.026   \\
+\textbf{Model:}            &       OLS        & \textbf{  Adj. R-squared:    } &     0.026   \\
+\textbf{Method:}           &  Least Squares   & \textbf{  F-statistic:       } &     335.2   \\
+\textbf{Date:}             & Wed, 19 Feb 2025 & \textbf{  Prob (F-statistic):} & 8.60e-215   \\
+\textbf{Time:}             &     12:04:30     & \textbf{  Log-Likelihood:    } &   -48633.   \\
+\textbf{No. Observations:} &       37290      & \textbf{  AIC:               } & 9.727e+04   \\
+\textbf{Df Residuals:}     &       37286      & \textbf{  BIC:               } & 9.731e+04   \\
+\textbf{Df Model:}         &           3      & \textbf{                     } &             \\
+\textbf{Covariance Type:}  &    nonrobust     & \textbf{                     } &             \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lcccccc}
+                      & \textbf{coef} & \textbf{std err} & \textbf{t} & \textbf{P$> |$t$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
+\midrule
+\textbf{Intercept}    &      -7.6453  &        0.014     &  -552.117  &         0.000        &       -7.672    &       -7.618     \\
+\textbf{price}        &      -0.0662  &        0.003     &   -24.543  &         0.000        &       -0.071    &       -0.061     \\
+\textbf{prom}         &       0.1990  &        0.016     &    12.316  &         0.000        &        0.167    &        0.231     \\
+\textbf{store\_brand} &      -0.2672  &        0.013     &   -21.180  &         0.000        &       -0.292    &       -0.242     \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lclc}
+\textbf{Omnibus:}       & 2157.310 & \textbf{  Durbin-Watson:     } &    1.362  \\
+\textbf{Prob(Omnibus):} &   0.000  & \textbf{  Jarque-Bera (JB):  } & 2189.616  \\
+\textbf{Skew:}          &  -0.552  & \textbf{  Prob(JB):          } &     0.00  \\
+\textbf{Kurtosis:}      &   2.563  & \textbf{  Cond. No.          } &     18.2  \\
+\bottomrule
+\end{tabular}
+%\caption{OLS Regression Results}
+\end{center}
+
+Notes: \newline
+ [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    
+
+    \subsubsection{(b) Using OLS with price and promotion as product
+characteristics and product fixed effects (where a ``product'' is a
+brand-size
+combination).}\label{b-using-ols-with-price-and-promotion-as-product-characteristics-and-product-fixed-effects-where-a-product-is-a-brand-size-combination.}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{model} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ln\PYZus{}share \PYZti{} price + prom + C(product)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{otc}\PY{p}{)}
+\PY{n}{logit\PYZus{}modelb} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\PY{n}{logit\PYZus{}modelb}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{7}{}
+    
+    \begin{center}
+\begin{tabular}{lclc}
+\toprule
+\textbf{Dep. Variable:}    &    ln\_share     & \textbf{  R-squared:         } &     0.457   \\
+\textbf{Model:}            &       OLS        & \textbf{  Adj. R-squared:    } &     0.457   \\
+\textbf{Method:}           &  Least Squares   & \textbf{  F-statistic:       } &     2614.   \\
+\textbf{Date:}             & Wed, 19 Feb 2025 & \textbf{  Prob (F-statistic):} &     0.00    \\
+\textbf{Time:}             &     12:04:30     & \textbf{  Log-Likelihood:    } &   -37744.   \\
+\textbf{No. Observations:} &       37290      & \textbf{  AIC:               } & 7.551e+04   \\
+\textbf{Df Residuals:}     &       37277      & \textbf{  BIC:               } & 7.562e+04   \\
+\textbf{Df Model:}         &          12      & \textbf{                     } &             \\
+\textbf{Covariance Type:}  &    nonrobust     & \textbf{                     } &             \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lcccccc}
+                          & \textbf{coef} & \textbf{std err} & \textbf{t} & \textbf{P$> |$t$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
+\midrule
+\textbf{Intercept}        &      -6.0693  &        0.037     &  -164.587  &         0.000        &       -6.142    &       -5.997     \\
+\textbf{C(product)[T.2]}  &       0.6879  &        0.023     &    30.566  &         0.000        &        0.644    &        0.732     \\
+\textbf{C(product)[T.3]}  &       0.9188  &        0.040     &    22.778  &         0.000        &        0.840    &        0.998     \\
+\textbf{C(product)[T.4]}  &      -0.4312  &        0.017     &   -25.661  &         0.000        &       -0.464    &       -0.398     \\
+\textbf{C(product)[T.5]}  &      -0.1960  &        0.024     &    -8.178  &         0.000        &       -0.243    &       -0.149     \\
+\textbf{C(product)[T.6]}  &       0.0045  &        0.051     &     0.088  &         0.930        &       -0.096    &        0.105     \\
+\textbf{C(product)[T.7]}  &      -1.6597  &        0.018     &   -93.199  &         0.000        &       -1.695    &       -1.625     \\
+\textbf{C(product)[T.8]}  &      -1.5844  &        0.016     &   -96.398  &         0.000        &       -1.617    &       -1.552     \\
+\textbf{C(product)[T.9]}  &      -0.5523  &        0.018     &   -31.542  &         0.000        &       -0.587    &       -0.518     \\
+\textbf{C(product)[T.10]} &      -1.2360  &        0.022     &   -56.168  &         0.000        &       -1.279    &       -1.193     \\
+\textbf{C(product)[T.11]} &      -0.7387  &        0.019     &   -38.296  &         0.000        &       -0.777    &       -0.701     \\
+\textbf{price}            &      -0.3404  &        0.010     &   -33.375  &         0.000        &       -0.360    &       -0.320     \\
+\textbf{prom}             &       0.3220  &        0.013     &    25.508  &         0.000        &        0.297    &        0.347     \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lclc}
+\textbf{Omnibus:}       & 2680.344 & \textbf{  Durbin-Watson:     } &    1.901  \\
+\textbf{Prob(Omnibus):} &   0.000  & \textbf{  Jarque-Bera (JB):  } & 3703.376  \\
+\textbf{Skew:}          &  -0.621  & \textbf{  Prob(JB):          } &     0.00  \\
+\textbf{Kurtosis:}      &   3.916  & \textbf{  Cond. No.          } &     112.  \\
+\bottomrule
+\end{tabular}
+%\caption{OLS Regression Results}
+\end{center}
+
+Notes: \newline
+ [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    
+
+    \subsubsection{(c) Estimate the models of (a) and (b) using the Hausman
+instrument (average price in other
+markets).}\label{c-estimate-the-models-of-a-and-b-using-the-hausman-instrument-average-price-in-other-markets.}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{get\PYZus{}instruments}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} compute average prices per store, week, and product}
+    \PY{n}{avg\PYZus{}prices} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{store}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} merge to bring average prices into the original dataframe}
+    \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{avg\PYZus{}prices}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{store}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{suffixes}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}avg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} compute instrument: average price across stores excluding the current store}
+    \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{instrument}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}avg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+
+    \PY{k}{return} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}avg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+
+\PY{n}{otc} \PY{o}{=} \PY{n}{get\PYZus{}instruments}\PY{p}{(}\PY{n}{otc}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} model a using IV}
+\PY{n}{formula} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ln\PYZus{}share \PYZti{} 1 + prom + store\PYZus{}brand + [price \PYZti{} instrument]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{logit\PYZus{}modela\PYZus{}iv} \PY{o}{=} \PY{n}{IV2SLS}\PY{o}{.}\PY{n}{from\PYZus{}formula}\PY{p}{(}\PY{n}{formula}\PY{p}{,} \PY{n}{otc}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\PY{n}{logit\PYZus{}modela\PYZus{}iv}\PY{o}{.}\PY{n}{summary}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{9}{}
+    
+    \begin{center}
+\begin{tabular}{lclc}
+\toprule
+\textbf{Dep. Variable:}    &     ln\_share      & \textbf{  R-squared:         } &      0.0263      \\
+\textbf{Estimator:}        &      IV-2SLS       & \textbf{  Adj. R-squared:    } &      0.0262      \\
+\textbf{No. Observations:} &       37290        & \textbf{  F-statistic:       } &      874.64      \\
+\textbf{Date:}             &  Wed, Feb 19 2025  & \textbf{  P-value (F-stat)   } &      0.0000      \\
+\textbf{Time:}             &      12:04:30      & \textbf{  Distribution:      } &     chi2(3)      \\
+\textbf{Cov. Estimator:}   &       robust       & \textbf{                     } &                  \\
+\textbf{}                  &                    & \textbf{                     } &                  \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lcccccc}
+                      & \textbf{Parameter} & \textbf{Std. Err.} & \textbf{T-stat} & \textbf{P-value} & \textbf{Lower CI} & \textbf{Upper CI}  \\
+\midrule
+\textbf{Intercept}    &      -7.6453       &       0.0143       &     -533.36     &      0.0000      &      -7.6734      &      -7.6172       \\
+\textbf{prom}         &       0.1990       &       0.0158       &      12.585     &      0.0000      &       0.1680      &       0.2300       \\
+\textbf{store\_brand} &      -0.2672       &       0.0136       &     -19.635     &      0.0000      &      -0.2938      &      -0.2405       \\
+\textbf{price}        &      -0.0662       &       0.0028       &     -23.364     &      0.0000      &      -0.0718      &      -0.0607       \\
+\bottomrule
+\end{tabular}
+%\caption{IV-2SLS Estimation Summary}
+\end{center}
+
+Endogenous: price \newline
+ Instruments: instrument \newline
+ Robust Covariance (Heteroskedastic) \newline
+ Debiased: False
+
+    
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} model b using IV}
+\PY{n}{otc\PYZus{}p} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{otc}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{fixed\PYZus{}effects} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ + }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{otc\PYZus{}p}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+
+\PY{n}{formula} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ln\PYZus{}share \PYZti{} prom  + }\PY{l+s+si}{\PYZob{}}\PY{n}{fixed\PYZus{}effects}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ + [price \PYZti{} instrument]}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{logit\PYZus{}modelb\PYZus{}iv} \PY{o}{=} \PY{n}{IV2SLS}\PY{o}{.}\PY{n}{from\PYZus{}formula}\PY{p}{(}\PY{n}{formula}\PY{p}{,} \PY{n}{otc\PYZus{}p}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\PY{n}{logit\PYZus{}modelb\PYZus{}iv}\PY{o}{.}\PY{n}{summary}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{10}{}
+    
+    \begin{center}
+\begin{tabular}{lclc}
+\toprule
+\textbf{Dep. Variable:}    &     ln\_share      & \textbf{  R-squared:         } &      0.4520      \\
+\textbf{Estimator:}        &      IV-2SLS       & \textbf{  Adj. R-squared:    } &      0.4519      \\
+\textbf{No. Observations:} &       37290        & \textbf{  F-statistic:       } &    6.581e+06     \\
+\textbf{Date:}             &  Wed, Feb 19 2025  & \textbf{  P-value (F-stat)   } &      0.0000      \\
+\textbf{Time:}             &      12:04:30      & \textbf{  Distribution:      } &     chi2(13)     \\
+\textbf{Cov. Estimator:}   &       robust       & \textbf{                     } &                  \\
+\textbf{}                  &                    & \textbf{                     } &                  \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lcccccc}
+                     & \textbf{Parameter} & \textbf{Std. Err.} & \textbf{T-stat} & \textbf{P-value} & \textbf{Lower CI} & \textbf{Upper CI}  \\
+\midrule
+\textbf{prom}        &       0.2648       &       0.0142       &      18.676     &      0.0000      &       0.2370      &       0.2926       \\
+\textbf{product\_1}  &      -5.4225       &       0.0531       &     -102.16     &      0.0000      &      -5.5265      &      -5.3184       \\
+\textbf{product\_2}  &      -4.4459       &       0.0763       &     -58.246     &      0.0000      &      -4.5955      &      -4.2963       \\
+\textbf{product\_3}  &      -3.8220       &       0.1081       &     -35.352     &      0.0000      &      -4.0338      &      -3.6101       \\
+\textbf{product\_4}  &      -5.9368       &       0.0468       &     -126.82     &      0.0000      &      -6.0286      &      -5.8451       \\
+\textbf{product\_5}  &      -5.2923       &       0.0797       &     -66.391     &      0.0000      &      -5.4485      &      -5.1361       \\
+\textbf{product\_6}  &      -4.5235       &       0.1256       &     -36.002     &      0.0000      &      -4.7698      &      -4.2773       \\
+\textbf{product\_7}  &      -7.2170       &       0.0432       &     -167.18     &      0.0000      &      -7.3016      &      -7.1324       \\
+\textbf{product\_8}  &      -6.9629       &       0.0566       &     -122.93     &      0.0000      &      -7.0739      &      -6.8518       \\
+\textbf{product\_9}  &      -5.8604       &       0.0629       &     -93.166     &      0.0000      &      -5.9837      &      -5.7371       \\
+\textbf{product\_10} &      -6.9324       &       0.0337       &     -205.62     &      0.0000      &      -6.9985      &      -6.8664       \\
+\textbf{product\_11} &      -5.9682       &       0.0683       &     -87.364     &      0.0000      &      -6.1021      &      -5.8343       \\
+\textbf{price}       &      -0.5286       &       0.0153       &     -34.607     &      0.0000      &      -0.5586      &      -0.4987       \\
+\bottomrule
+\end{tabular}
+%\caption{IV-2SLS Estimation Summary}
+\end{center}
+
+Endogenous: price \newline
+ Instruments: instrument \newline
+ Robust Covariance (Heteroskedastic) \newline
+ Debiased: False
+
+    
+
+    \subsubsection{(d) Compute the mean own-price elasticities for all
+products}\label{d-compute-the-mean-own-price-elasticities-for-all-products}
+
+    Recall that \$ \eta\_j = \frac{\partial q_j}{\partial p_j}
+\frac{p_j}{q_j} = \alpha p\_j (1 - s\_j) \$
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{alpha} \PY{o}{=} \PY{n}{logit\PYZus{}modelb\PYZus{}iv}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{price}
+\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elasticity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{alpha} \PY{o}{*} \PY{p}{(}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} add this to our summary table so that we can easily compare}
+\PY{n}{sum\PYZus{}elast} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{n}{elasticity} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elasticity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\PY{n}{summary} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{summary}\PY{p}{,} \PY{n}{sum\PYZus{}elast}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{summary}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+    product  price  total\_sales  wholesale\_price        brand  size  \textbackslash{}
+0         1  3.427        51280            2.187      Tylenol    25
+1         2  4.946        63604            3.681      Tylenol    50
+2         3  7.028        41305            5.771      Tylenol   100
+3         4  2.969        42032            2.027        Advil    25
+4         5  5.146        27627            3.630        Advil    50
+5         6  8.158        12703            6.104        Advil   100
+6         7  2.674        14365            1.851        Bayer    25
+7         8  3.619        12310            2.438        Bayer    50
+8         9  3.971        28324            3.710        Bayer   100
+9        10  1.935        33175            0.910  Store Brand    50
+10       11  4.427        27208            1.914  Store Brand   100
+
+    market\_share  price\_per\_100  elasticity
+0          0.145         13.708      -1.810
+1          0.180          9.893      -2.612
+2          0.117          7.028      -3.713
+3          0.119         11.876      -1.568
+4          0.078         10.291      -2.719
+5          0.036          8.158      -4.312
+6          0.041         10.697      -1.413
+7          0.035          7.238      -1.913
+8          0.080          3.971      -2.098
+9          0.094          3.871      -1.023
+10         0.077          4.427      -2.339
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \subsection{3. New Product Introduction}\label{new-product-introduction}
+
+\subsubsection{The chain of stores you have data from is considering
+introducing a 25 tablet size
+bottle.}\label{the-chain-of-stores-you-have-data-from-is-considering-introducing-a-25-tablet-size-bottle.}
+
+    \subsubsection{(a) Assume WTP for the new product will be equal to
+average WTP of the brand name 25 tablet products, minus the ``store
+brand'' effect you estimated in the first part above. Assume there are
+no promotions of the new product. What will be the expected demand for
+the new product at a price of
+\$2.00?}\label{a-assume-wtp-for-the-new-product-will-be-equal-to-average-wtp-of-the-brand-name-25-tablet-products-minus-the-store-brand-effect-you-estimated-in-the-first-part-above.-assume-there-are-no-promotions-of-the-new-product.-what-will-be-the-expected-demand-for-the-new-product-at-a-price-of-2.00}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} WTP = average product\PYZus{}fe \PYZhy{} store\PYZus{}brand}
+\PY{n}{beta\PYZus{}product} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{product\PYZus{}numbers}\PY{p}{:}
+    \PY{n}{beta\PYZus{}product}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{logit\PYZus{}modelb\PYZus{}iv}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{beta\PYZus{}fe} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{beta\PYZus{}product}\PY{p}{)}
+
+\PY{n}{beta\PYZus{}storebrand} \PY{o}{=} \PY{n}{logit\PYZus{}modela\PYZus{}iv}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{store\PYZus{}brand}
+
+\PY{n}{WTP} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{beta\PYZus{}product}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{beta\PYZus{}product}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{+} \PY{n}{beta\PYZus{}product}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{beta\PYZus{}storebrand}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} pull coefficients for use in calculating shares}
+\PY{n}{beta\PYZus{}prom} \PY{o}{=} \PY{n}{logit\PYZus{}modelb\PYZus{}iv}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{prom}
+\PY{n}{alpha} \PY{o}{=} \PY{n}{logit\PYZus{}modelb\PYZus{}iv}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{price}
+
+\PY{n}{beta\PYZus{}product} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{product\PYZus{}numbers}\PY{p}{:}
+    \PY{n}{beta\PYZus{}product}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{logit\PYZus{}modelb\PYZus{}iv}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+
+\PY{n}{beta\PYZus{}fe} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{beta\PYZus{}product}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} recalculate market shares with new good}
+\PY{c+c1}{\PYZsh{} calculate logit share numerator for each good}
+\PY{n}{numerator} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{product\PYZus{}numbers}\PY{p}{:}
+    \PY{n}{otc\PYZus{}i} \PY{o}{=} \PY{n}{otc}\PY{p}{[}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{i}\PY{p}{]}
+    \PY{n}{numerator}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{p}{(}\PY{n}{alpha} \PY{o}{*} \PY{n}{otc\PYZus{}i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{beta\PYZus{}prom} \PY{o}{*} \PY{n}{otc\PYZus{}i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                          \PY{p}{(}\PY{n}{beta\PYZus{}storebrand} \PY{o}{*} \PY{n}{otc\PYZus{}i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{store\PYZus{}brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{beta\PYZus{}fe}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+\PY{n}{numerator} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{numerator}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} use WTP calculated above as product FE}
+\PY{n}{numerator}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{p}{(}\PY{n}{alpha} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{beta\PYZus{}prom} \PY{o}{*} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{beta\PYZus{}storebrand} \PY{o}{*} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{+} \PY{n}{WTP}\PY{p}{)}
+
+\PY{n}{denominator} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{+} \PY{n}{numerator}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{15}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} calculate total customers across all stores in all weeks}
+\PY{n}{total\PYZus{}traffic} \PY{o}{=} \PY{p}{(}\PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{store}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} estimate sales of each good before and after new product introduction}
+\PY{n}{new\PYZus{}market\PYZus{}shares} \PY{o}{=} \PY{n}{numerator} \PY{o}{/} \PY{n}{denominator}
+\PY{n}{sales\PYZus{}new} \PY{o}{=} \PY{n}{new\PYZus{}market\PYZus{}shares} \PY{o}{*} \PY{n}{total\PYZus{}traffic}
+\PY{n}{old\PYZus{}market\PYZus{}shares} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{}add in value of 0 for new product before it was introduced}
+\PY{n}{old\PYZus{}market\PYZus{}shares}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} 
+\PY{n}{sales\PYZus{}old} \PY{o}{=} \PY{n}{old\PYZus{}market\PYZus{}shares} \PY{o}{*} \PY{n}{total\PYZus{}traffic}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} put it all into a table }
+\PY{n}{otc\PYZus{}new} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Shares}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{old\PYZus{}market\PYZus{}shares}\PY{o}{.}\PY{n}{values}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{sales\PYZus{}old}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Shares}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{new\PYZus{}market\PYZus{}shares}\PY{o}{.}\PY{n}{values}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{sales\PYZus{}new}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{n}{index} \PY{o}{=} \PY{n}{new\PYZus{}market\PYZus{}shares}\PY{o}{.}\PY{n}{index}
+\PY{p}{)}  
+
+\PY{c+c1}{\PYZsh{} Rename the index to \PYZsq{}Products\PYZsq{}}
+\PY{n}{otc\PYZus{}new}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Products}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{otc\PYZus{}new}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+          Old Shares  Old Sales  New Shares  New Sales
+Products
+1           0.000771   51361.08    0.000724   48249.15
+2           0.000947   63119.78    0.000872   58098.00
+3           0.000621   41386.19    0.000545   36291.64
+4           0.000642   42747.23    0.000559   37273.48
+5           0.000424   28240.52    0.000337   22431.84
+6           0.000197   13110.40    0.000149    9900.88
+7           0.000218   14557.37    0.000185   12325.76
+8           0.000184   12246.41    0.000145    9688.80
+9           0.000430   28681.10    0.000371   24688.23
+10          0.000495   33000.98    0.000278   18518.13
+11          0.000408   27204.97    0.000194   12906.47
+12          0.000000       0.00    0.000707   47109.12
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \subsubsection{(b) Break down the benefits and costs to the store of
+introducing this new format (assume wholesale price is \$1.00 and there
+are no fixed or other variable costs of the new product
+introduction).}\label{b-break-down-the-benefits-and-costs-to-the-store-of-introducing-this-new-format-assume-wholesale-price-is-1.00-and-there-are-no-fixed-or-other-variable-costs-of-the-new-product-introduction.}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} pull price and cost information and add in the new product}
+\PY{n}{price} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\PY{n}{cost} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\PY{n}{price}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2}
+\PY{n}{cost}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+
+\PY{c+c1}{\PYZsh{} add to otc\PYZus{}new}
+\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{price}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cost}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} calculate profit before and after the new product}
+\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Profit before the new product: }\PY{l+s+si}{\PYZob{}}\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Profit after the new product: }\PY{l+s+si}{\PYZob{}}\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Therefore, introducing the new product changes profit by }\PY{l+s+si}{\PYZob{}}\PY{p}{(}\PY{p}{(}\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{+w}{ }\PY{o}{\PYZhy{}}\PY{+w}{ }\PY{p}{(}\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Profit before the new product: 442504.29
+Profit after the new product: 395536.09
+Therefore, introducing the new product changes profit by -46968.2
+    \end{Verbatim}
+
+    \subsection{4. Information Intervention}\label{information-intervention}
+
+\subsubsection{The chain of stores you have data from is considering a
+campaign to help educate customers that there is no efficacy difference
+between the brand name and ``store brand''
+drugs.}\label{the-chain-of-stores-you-have-data-from-is-considering-a-campaign-to-help-educate-customers-that-there-is-no-efficacy-difference-between-the-brand-name-and-store-brand-drugs.}
+
+    \subsubsection{(a) Assume the campaign increases the WTP for the ``store
+brands'' by the full absolute value of the ``store brand'' effect you
+estimated in the first part. What is the net benefit and cost to the
+store? To
+consumers?}\label{a-assume-the-campaign-increases-the-wtp-for-the-store-brands-by-the-full-absolute-value-of-the-store-brand-effect-you-estimated-in-the-first-part.-what-is-the-net-benefit-and-cost-to-the-store-to-consumers}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{19}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} pull fe again (just in case)}
+\PY{n}{beta\PYZus{}product} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{product\PYZus{}numbers}\PY{p}{:}
+    \PY{n}{beta\PYZus{}product}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{logit\PYZus{}modelb\PYZus{}iv}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{product\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{beta\PYZus{}fe} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{beta\PYZus{}product}\PY{p}{)}
+
+\PY{n}{beta\PYZus{}storebrand} \PY{o}{=} \PY{n}{logit\PYZus{}modela\PYZus{}iv}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{store\PYZus{}brand}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{20}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} calculate CS before change}
+\PY{c+c1}{\PYZsh{} calculate logit share numerator for each good \PYZhy{} increase by store brand since consumers received more utility than they realized}
+\PY{n}{numerator} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{product\PYZus{}numbers}\PY{p}{:}
+    \PY{n}{otc\PYZus{}i} \PY{o}{=} \PY{n}{otc}\PY{p}{[}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{i}\PY{p}{]}
+    \PY{n}{numerator}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{p}{(}\PY{n}{alpha} \PY{o}{*} \PY{n}{otc\PYZus{}i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{beta\PYZus{}prom} \PY{o}{*} \PY{n}{otc\PYZus{}i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                           \PY{o}{+} \PY{n}{beta\PYZus{}fe}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{beta\PYZus{}storebrand}\PY{p}{)} \PY{o}{*} \PY{n}{otc\PYZus{}i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{store\PYZus{}brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{numerator\PYZus{}before} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{numerator}\PY{p}{)}
+\PY{n}{denominator\PYZus{}before} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{+} \PY{n}{numerator\PYZus{}before}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{21}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} recalculate WTP without the store\PYZhy{}brand effect}
+\PY{n}{beta\PYZus{}fe}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{o}{=} \PY{n}{beta\PYZus{}fe}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{beta\PYZus{}storebrand}\PY{p}{)}
+\PY{n}{beta\PYZus{}fe}\PY{p}{[}\PY{l+m+mi}{11}\PY{p}{]} \PY{o}{=} \PY{n}{beta\PYZus{}fe}\PY{p}{[}\PY{l+m+mi}{11}\PY{p}{]} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{beta\PYZus{}storebrand}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} recalculate market shares with new WTP}
+\PY{c+c1}{\PYZsh{} calculate logit share numerator for each good}
+\PY{n}{numerator} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{product\PYZus{}numbers}\PY{p}{:}
+    \PY{n}{otc\PYZus{}i} \PY{o}{=} \PY{n}{otc}\PY{p}{[}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{i}\PY{p}{]}
+    \PY{n}{numerator}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{p}{(}\PY{n}{alpha} \PY{o}{*} \PY{n}{otc\PYZus{}i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{beta\PYZus{}prom} \PY{o}{*} \PY{n}{otc\PYZus{}i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                           \PY{o}{+} \PY{n}{beta\PYZus{}fe}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{beta\PYZus{}storebrand}\PY{p}{)} \PY{o}{*} \PY{n}{otc\PYZus{}i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{store\PYZus{}brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{numerator\PYZus{}after} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{numerator}\PY{p}{)}
+\PY{n}{denominator\PYZus{}after} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{+} \PY{n}{numerator\PYZus{}after}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{30}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} estimate sales of each good before and after information campaign}
+\PY{n}{new\PYZus{}market\PYZus{}shares} \PY{o}{=} \PY{n}{numerator\PYZus{}after} \PY{o}{/} \PY{n}{denominator\PYZus{}after}
+\PY{n}{sales\PYZus{}new} \PY{o}{=} \PY{n}{new\PYZus{}market\PYZus{}shares} \PY{o}{*} \PY{n}{total\PYZus{}traffic}
+\PY{n}{old\PYZus{}market\PYZus{}shares} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\PY{n}{sales\PYZus{}old} \PY{o}{=} \PY{n}{old\PYZus{}market\PYZus{}shares} \PY{o}{*} \PY{n}{total\PYZus{}traffic}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} put it all into a table }
+\PY{n}{otc\PYZus{}info} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Shares}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{old\PYZus{}market\PYZus{}shares}\PY{o}{.}\PY{n}{values}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{sales\PYZus{}old}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Shares}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{new\PYZus{}market\PYZus{}shares}\PY{o}{.}\PY{n}{values}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{sales\PYZus{}new}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{n}{index} \PY{o}{=} \PY{n}{new\PYZus{}market\PYZus{}shares}\PY{o}{.}\PY{n}{index}
+\PY{p}{)}  
+
+\PY{c+c1}{\PYZsh{} Rename the index to \PYZsq{}Products\PYZsq{}}
+\PY{n}{otc\PYZus{}info}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Products}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{otc\PYZus{}info}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+          Old Shares  Old Sales  New Shares  New Sales
+Products
+1           0.000771   51361.08    0.000724   48267.20
+2           0.000947   63119.78    0.000872   58119.73
+3           0.000621   41386.19    0.000545   36305.22
+4           0.000642   42747.23    0.000560   37287.43
+5           0.000424   28240.52    0.000337   22440.23
+6           0.000197   13110.40    0.000149    9904.59
+7           0.000218   14557.37    0.000185   12330.37
+8           0.000184   12246.41    0.000145    9692.42
+9           0.000430   28681.10    0.000371   24697.46
+10          0.000495   33000.98    0.000474   31609.69
+11          0.000408   27204.97    0.000331   22030.82
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{32}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} pull price and cost information and add in the new product}
+\PY{n}{price} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\PY{n}{cost} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} add to otc\PYZus{}info}
+\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{price}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cost}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{33}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} calculate profit before and after the new product}
+\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Profit before the new product: }\PY{l+s+si}{\PYZob{}}\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Profit after the new product: }\PY{l+s+si}{\PYZob{}}\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Therefore, introducing the new product changes profit by }\PY{l+s+si}{\PYZob{}}\PY{p}{(}\PY{p}{(}\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{+w}{ }\PY{o}{\PYZhy{}}\PY{+w}{ }\PY{p}{(}\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Profit before the new product: 442504.29
+Profit after the new product: 385015.71
+Therefore, introducing the new product changes profit by -57488.58
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{34}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} CS = log(denominator)/alpha}
+\PY{n}{CS\PYZus{}before} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{denominator\PYZus{}before}\PY{p}{)} \PY{o}{/} \PY{n}{alpha}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Consumer Surplus before the information campaign is }\PY{l+s+si}{\PYZob{}}\PY{n}{CS\PYZus{}before}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{CS\PYZus{}after} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{denominator\PYZus{}after}\PY{p}{)} \PY{o}{/} \PY{n}{alpha}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Consumer Surplus after the information campaign is }\PY{l+s+si}{\PYZob{}}\PY{n}{CS\PYZus{}after}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Consumer Surplus before the information campaign is -0.008898765290945184
+Consumer Surplus after the information campaign is -0.008898765290945184
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}

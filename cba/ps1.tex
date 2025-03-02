@@ -186,11 +186,13 @@
     \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
     % Document parameters
     % Document title
-    \title{ps1}
+    \title{Problem Set 1 - Suggested Solutions}
     
     
     
     
+    
+    \author{Michaela Philip}
     
     
     
@@ -347,6 +349,8 @@
         }
     \makeatother
 
+    \renewcommand{\thesection}{\arabic{section}}
+
     \let\OriginalVerbatim=\Verbatim
     \makeatletter
     \renewcommand{\Verbatim}[1][1]{%
@@ -388,7 +392,7 @@
         {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
     }
     
-    \author{Michaela Philip - Emory University}
+
     
     % Prevent overflowing lines due to hard-to-break entities
     \sloppy
@@ -413,19 +417,13 @@
     
 
     
-    \section{Problem Set 1 - Suggested
-Solutions}\label{problem-set-1---suggested-solutions}
-
-%     \subsection{Michaela Philip - Emory
-% University}\label{michaela-philip---emory-university}
-
-    \subsection{1. Sum Stats and Institutional
+    \subsection{Sum Stats and Institutional
 Details}\label{sum-stats-and-institutional-details}
 
-    \subsubsection{(a) Do some brief diligence on the products and industry.
+    \subsubsection{Do some brief diligence on the products and industry.
 What do you anticipate may be some important determinants of demand,
 substitution, and
-pricing?}\label{a-do-some-brief-diligence-on-the-products-and-industry.-what-do-you-anticipate-may-be-some-important-determinants-of-demand-substitution-and-pricing}
+pricing?}\label{do-some-brief-diligence-on-the-products-and-industry.-what-do-you-anticipate-may-be-some-important-determinants-of-demand-substitution-and-pricing}
 
     Answers may vary. Students may include information on conditions treated
 by the medications, the prevalence of these conditions, or relevant
@@ -433,13 +431,13 @@ by the medications, the prevalence of these conditions, or relevant
 also include general information on popularity or use trends for the
 products.
 
-    \subsubsection{(b) Complete the table above by adding columns for the
-mean: market share, unit price, price/100 tablets, and unit wholesale
-price. Interpret any notable patterns you see in the summary
-statistics.}\label{b-complete-the-table-above-by-adding-columns-for-the-mean-market-share-unit-price-price100-tablets-and-unit-wholesale-price.-interpret-any-notable-patterns-you-see-in-the-summary-statistics.}
+    \subsubsection{Complete the table above by adding columns for the mean:
+market share, unit price, price/100 tablets, and unit wholesale price.
+Interpret any notable patterns you see in the summary
+statistics.}\label{complete-the-table-above-by-adding-columns-for-the-mean-market-share-unit-price-price100-tablets-and-unit-wholesale-price.-interpret-any-notable-patterns-you-see-in-the-summary-statistics.}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{1}{\boxspacing}
+\prompt{In}{incolor}{28}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{numpy}\PY{+w}{ }\PY{k}{as}\PY{+w}{ }\PY{n+nn}{np} 
 \PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{pandas}\PY{+w}{ }\PY{k}{as}\PY{+w}{ }\PY{n+nn}{pd} 
@@ -451,7 +449,7 @@ statistics.}\label{b-complete-the-table-above-by-adding-columns-for-the-mean-mar
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{2}{\boxspacing}
+\prompt{In}{incolor}{29}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} calculate total sales for each store\PYZhy{}week pair}
 \PY{n}{product\PYZus{}numbers} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{]}
@@ -460,7 +458,7 @@ statistics.}\label{b-complete-the-table-above-by-adding-columns-for-the-mean-mar
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{3}{\boxspacing}
+\prompt{In}{incolor}{30}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} reshape to make it easier to work with}
 \PY{n}{otc} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{wide\PYZus{}to\PYZus{}long}\PY{p}{(}\PY{n}{otc}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
@@ -512,7 +510,7 @@ statistics.}\label{b-complete-the-table-above-by-adding-columns-for-the-mean-mar
 \end{tcolorbox}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{3}{\boxspacing}
+\prompt{Out}{outcolor}{30}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
     product        brand  size  market\_share  price  price\_per\_100  \textbackslash{}
 0         1      Tylenol    25          0.14   3.43          13.71
@@ -542,29 +540,38 @@ statistics.}\label{b-complete-the-table-above-by-adding-columns-for-the-mean-mar
 \end{Verbatim}
 \end{tcolorbox}
         
-    \subsection{2. Logit Demand Estimation}\label{logit-demand-estimation}
+    \subsection{Logit Demand Estimation}\label{logit-demand-estimation}
 
-\subsubsection{Consider the utility function for product j in store-week
-t for consumer
+\subsubsection*{Consider the utility function for product j in
+store-week t for consumer
 i:}\label{consider-the-utility-function-for-product-j-in-store-week-t-for-consumer-i}
+\addcontentsline{toc}{subsubsection}{Consider the utility function for
+product j in store-week t for consumer i:}
 
-\subsubsection{\$ u\_\{ijt\} = −αp\_\{jt\} + X\_\{jt\}β + ξ\_\{jt\} +
+\subsubsection*{\$ u\_\{ijt\} = −αp\_\{jt\} + X\_\{jt\}β + ξ\_\{jt\} +
 ϵ\_\{ijt\} \$ (1)}\label{u_ijt-ux3b1p_jt-x_jtux3b2-ux3be_jt-ux3f5_ijt-1}
+\addcontentsline{toc}{subsubsection}{\$ u\_\{ijt\} = −αp\_\{jt\} +
+X\_\{jt\}β + ξ\_\{jt\} + ϵ\_\{ijt\} \$ (1)}
 
-\subsubsection{\texorpdfstring{where \(p_{jt}\) is price, \(X_{jt}\) are
-other observed product characteristics, \(ξ_{jt}\) are unobserved
+\subsubsection*{\texorpdfstring{where \(p_{jt}\) is price, \(X_{jt}\)
+are other observed product characteristics, \(ξ_{jt}\) are unobserved
 product characteristics, and \(ϵ_{ijt}\) is an i.i.d. EV1 logit
 consumer-product-market
 unobservable.}{where p\_\{jt\} is price, X\_\{jt\} are other observed product characteristics, ξ\_\{jt\} are unobserved product characteristics, and ϵ\_\{ijt\} is an i.i.d. EV1 logit consumer-product-market unobservable.}}\label{where-p_jt-is-price-x_jt-are-other-observed-product-characteristics-ux3be_jt-are-unobserved-product-characteristics-and-ux3f5_ijt-is-an-i.i.d.-ev1-logit-consumer-product-market-unobservable.}
+\addcontentsline{toc}{subsubsection}{where \(p_{jt}\) is price,
+\(X_{jt}\) are other observed product characteristics, \(ξ_{jt}\) are
+unobserved product characteristics, and \(ϵ_{ijt}\) is an i.i.d. EV1
+logit consumer-product-market unobservable.}
 
-\subsubsection{Estimate this model:}\label{estimate-this-model}
+\subsubsection*{Estimate this model:}\label{estimate-this-model}
+\addcontentsline{toc}{subsubsection}{Estimate this model:}
 
-    \subsubsection{(a) Using OLS with price, promotion, and an indicator for
+    \subsubsection{Using OLS with price, promotion, and an indicator for
 whether the product is a ``store brand'' as product
-characteristics.}\label{a-using-ols-with-price-promotion-and-an-indicator-for-whether-the-product-is-a-store-brand-as-product-characteristics.}
+characteristics.}\label{using-ols-with-price-promotion-and-an-indicator-for-whether-the-product-is-a-store-brand-as-product-characteristics.}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{4}{\boxspacing}
+\prompt{In}{incolor}{31}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} need shares for each observation}
 \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
@@ -577,7 +584,7 @@ characteristics.}\label{a-using-ols-with-price-promotion-and-an-indicator-for-wh
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{5}{\boxspacing}
+\prompt{In}{incolor}{32}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} create dependent variable: ln(share \PYZhy{} outside\PYZus{}share)}
 \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ln\PYZus{}share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outside\PYZus{}share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
@@ -585,7 +592,7 @@ characteristics.}\label{a-using-ols-with-price-promotion-and-an-indicator-for-wh
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{6}{\boxspacing}
+\prompt{In}{incolor}{33}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{model} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ln\PYZus{}share \PYZti{} price + prom + store\PYZus{}brand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{otc}\PY{p}{)}
 \PY{n}{logit\PYZus{}modela} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
@@ -594,7 +601,7 @@ characteristics.}\label{a-using-ols-with-price-promotion-and-an-indicator-for-wh
 \end{tcolorbox}
  
             
-\prompt{Out}{outcolor}{6}{}
+\prompt{Out}{outcolor}{33}{}
     
     \begin{center}
 \begin{tabular}{lclc}
@@ -602,8 +609,8 @@ characteristics.}\label{a-using-ols-with-price-promotion-and-an-indicator-for-wh
 \textbf{Dep. Variable:}    &    ln\_share     & \textbf{  R-squared:         } &     0.026   \\
 \textbf{Model:}            &       OLS        & \textbf{  Adj. R-squared:    } &     0.026   \\
 \textbf{Method:}           &  Least Squares   & \textbf{  F-statistic:       } &     335.2   \\
-\textbf{Date:}             & Wed, 19 Feb 2025 & \textbf{  Prob (F-statistic):} & 8.60e-215   \\
-\textbf{Time:}             &     12:04:30     & \textbf{  Log-Likelihood:    } &   -48633.   \\
+\textbf{Date:}             & Sat, 01 Mar 2025 & \textbf{  Prob (F-statistic):} & 8.60e-215   \\
+\textbf{Time:}             &     14:47:33     & \textbf{  Log-Likelihood:    } &   -48633.   \\
 \textbf{No. Observations:} &       37290      & \textbf{  AIC:               } & 9.727e+04   \\
 \textbf{Df Residuals:}     &       37286      & \textbf{  BIC:               } & 9.731e+04   \\
 \textbf{Df Model:}         &           3      & \textbf{                     } &             \\
@@ -634,13 +641,13 @@ Notes: \newline
 
     
 
-    \subsubsection{(b) Using OLS with price and promotion as product
+    \subsubsection{Using OLS with price and promotion as product
 characteristics and product fixed effects (where a ``product'' is a
 brand-size
-combination).}\label{b-using-ols-with-price-and-promotion-as-product-characteristics-and-product-fixed-effects-where-a-product-is-a-brand-size-combination.}
+combination).}\label{using-ols-with-price-and-promotion-as-product-characteristics-and-product-fixed-effects-where-a-product-is-a-brand-size-combination.}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{7}{\boxspacing}
+\prompt{In}{incolor}{34}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{model} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ln\PYZus{}share \PYZti{} price + prom + C(product)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{otc}\PY{p}{)}
 \PY{n}{logit\PYZus{}modelb} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
@@ -649,7 +656,7 @@ combination).}\label{b-using-ols-with-price-and-promotion-as-product-characteris
 \end{tcolorbox}
  
             
-\prompt{Out}{outcolor}{7}{}
+\prompt{Out}{outcolor}{34}{}
     
     \begin{center}
 \begin{tabular}{lclc}
@@ -657,8 +664,8 @@ combination).}\label{b-using-ols-with-price-and-promotion-as-product-characteris
 \textbf{Dep. Variable:}    &    ln\_share     & \textbf{  R-squared:         } &     0.457   \\
 \textbf{Model:}            &       OLS        & \textbf{  Adj. R-squared:    } &     0.457   \\
 \textbf{Method:}           &  Least Squares   & \textbf{  F-statistic:       } &     2614.   \\
-\textbf{Date:}             & Wed, 19 Feb 2025 & \textbf{  Prob (F-statistic):} &     0.00    \\
-\textbf{Time:}             &     12:04:30     & \textbf{  Log-Likelihood:    } &   -37744.   \\
+\textbf{Date:}             & Sat, 01 Mar 2025 & \textbf{  Prob (F-statistic):} &     0.00    \\
+\textbf{Time:}             &     14:47:33     & \textbf{  Log-Likelihood:    } &   -37744.   \\
 \textbf{No. Observations:} &       37290      & \textbf{  AIC:               } & 7.551e+04   \\
 \textbf{Df Residuals:}     &       37277      & \textbf{  BIC:               } & 7.562e+04   \\
 \textbf{Df Model:}         &          12      & \textbf{                     } &             \\
@@ -698,12 +705,12 @@ Notes: \newline
 
     
 
-    \subsubsection{(c) Estimate the models of (a) and (b) using the Hausman
+    \subsubsection{Estimate the models of (a) and (b) using the Hausman
 instrument (average price in other
-markets).}\label{c-estimate-the-models-of-a-and-b-using-the-hausman-instrument-average-price-in-other-markets.}
+markets).}\label{estimate-the-models-of-a-and-b-using-the-hausman-instrument-average-price-in-other-markets.}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{8}{\boxspacing}
+\prompt{In}{incolor}{35}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{def}\PY{+w}{ }\PY{n+nf}{get\PYZus{}instruments}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
     \PY{c+c1}{\PYZsh{} compute average prices per store, week, and product}
@@ -722,7 +729,7 @@ markets).}\label{c-estimate-the-models-of-a-and-b-using-the-hausman-instrument-a
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{9}{\boxspacing}
+\prompt{In}{incolor}{36}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} model a using IV}
 \PY{n}{formula} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ln\PYZus{}share \PYZti{} 1 + prom + store\PYZus{}brand + [price \PYZti{} instrument]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -732,7 +739,7 @@ markets).}\label{c-estimate-the-models-of-a-and-b-using-the-hausman-instrument-a
 \end{tcolorbox}
  
             
-\prompt{Out}{outcolor}{9}{}
+\prompt{Out}{outcolor}{36}{}
     
     \begin{center}
 \begin{tabular}{lclc}
@@ -740,8 +747,8 @@ markets).}\label{c-estimate-the-models-of-a-and-b-using-the-hausman-instrument-a
 \textbf{Dep. Variable:}    &     ln\_share      & \textbf{  R-squared:         } &      0.0263      \\
 \textbf{Estimator:}        &      IV-2SLS       & \textbf{  Adj. R-squared:    } &      0.0262      \\
 \textbf{No. Observations:} &       37290        & \textbf{  F-statistic:       } &      874.64      \\
-\textbf{Date:}             &  Wed, Feb 19 2025  & \textbf{  P-value (F-stat)   } &      0.0000      \\
-\textbf{Time:}             &      12:04:30      & \textbf{  Distribution:      } &     chi2(3)      \\
+\textbf{Date:}             &  Sat, Mar 01 2025  & \textbf{  P-value (F-stat)   } &      0.0000      \\
+\textbf{Time:}             &      14:47:33      & \textbf{  Distribution:      } &     chi2(3)      \\
 \textbf{Cov. Estimator:}   &       robust       & \textbf{                     } &                  \\
 \textbf{}                  &                    & \textbf{                     } &                  \\
 \bottomrule
@@ -766,7 +773,7 @@ Endogenous: price \newline
     
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{10}{\boxspacing}
+\prompt{In}{incolor}{37}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} model b using IV}
 \PY{n}{otc\PYZus{}p} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{otc}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
@@ -779,7 +786,7 @@ Endogenous: price \newline
 \end{tcolorbox}
  
             
-\prompt{Out}{outcolor}{10}{}
+\prompt{Out}{outcolor}{37}{}
     
     \begin{center}
 \begin{tabular}{lclc}
@@ -787,8 +794,8 @@ Endogenous: price \newline
 \textbf{Dep. Variable:}    &     ln\_share      & \textbf{  R-squared:         } &      0.4520      \\
 \textbf{Estimator:}        &      IV-2SLS       & \textbf{  Adj. R-squared:    } &      0.4519      \\
 \textbf{No. Observations:} &       37290        & \textbf{  F-statistic:       } &    6.581e+06     \\
-\textbf{Date:}             &  Wed, Feb 19 2025  & \textbf{  P-value (F-stat)   } &      0.0000      \\
-\textbf{Time:}             &      12:04:30      & \textbf{  Distribution:      } &     chi2(13)     \\
+\textbf{Date:}             &  Sat, Mar 01 2025  & \textbf{  P-value (F-stat)   } &      0.0000      \\
+\textbf{Time:}             &      14:47:33      & \textbf{  Distribution:      } &     chi2(13)     \\
 \textbf{Cov. Estimator:}   &       robust       & \textbf{                     } &                  \\
 \textbf{}                  &                    & \textbf{                     } &                  \\
 \bottomrule
@@ -821,14 +828,11 @@ Endogenous: price \newline
 
     
 
-    \subsubsection{(d) Compute the mean own-price elasticities for all
-products}\label{d-compute-the-mean-own-price-elasticities-for-all-products}
-
-    Recall that \$ \eta\_j = \frac{\partial q_j}{\partial p_j}
-\frac{p_j}{q_j} = \alpha p\_j (1 - s\_j) \$
+    \subsubsection{Compute the mean own-price elasticities for all
+products}\label{compute-the-mean-own-price-elasticities-for-all-products}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{11}{\boxspacing}
+\prompt{In}{incolor}{38}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{alpha} \PY{o}{=} \PY{n}{logit\PYZus{}modelb\PYZus{}iv}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{price}
 \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elasticity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{alpha} \PY{o}{*} \PY{p}{(}\PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{otc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
@@ -841,7 +845,7 @@ products}\label{d-compute-the-mean-own-price-elasticities-for-all-products}
 \end{tcolorbox}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{11}{\boxspacing}
+\prompt{Out}{outcolor}{38}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
     product  price  total\_sales  wholesale\_price        brand  size  \textbackslash{}
 0         1  3.427        51280            2.187      Tylenol    25
@@ -871,21 +875,23 @@ products}\label{d-compute-the-mean-own-price-elasticities-for-all-products}
 \end{Verbatim}
 \end{tcolorbox}
         
-    \subsection{3. New Product Introduction}\label{new-product-introduction}
+    \subsection{New Product Introduction}\label{new-product-introduction}
 
-\subsubsection{The chain of stores you have data from is considering
+\subsubsection*{The chain of stores you have data from is considering
 introducing a 25 tablet size
 bottle.}\label{the-chain-of-stores-you-have-data-from-is-considering-introducing-a-25-tablet-size-bottle.}
+\addcontentsline{toc}{subsubsection}{The chain of stores you have data
+from is considering introducing a 25 tablet size bottle.}
 
-    \subsubsection{(a) Assume WTP for the new product will be equal to
-average WTP of the brand name 25 tablet products, minus the ``store
-brand'' effect you estimated in the first part above. Assume there are
-no promotions of the new product. What will be the expected demand for
-the new product at a price of
-\$2.00?}\label{a-assume-wtp-for-the-new-product-will-be-equal-to-average-wtp-of-the-brand-name-25-tablet-products-minus-the-store-brand-effect-you-estimated-in-the-first-part-above.-assume-there-are-no-promotions-of-the-new-product.-what-will-be-the-expected-demand-for-the-new-product-at-a-price-of-2.00}
+    \subsubsection{Assume WTP for the new product will be equal to average
+WTP of the brand name 25 tablet products, minus the ``store brand''
+effect you estimated in the first part above. Assume there are no
+promotions of the new product. What will be the expected demand for the
+new product at a price of
+\$2.00?}\label{assume-wtp-for-the-new-product-will-be-equal-to-average-wtp-of-the-brand-name-25-tablet-products-minus-the-store-brand-effect-you-estimated-in-the-first-part-above.-assume-there-are-no-promotions-of-the-new-product.-what-will-be-the-expected-demand-for-the-new-product-at-a-price-of-2.00}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{12}{\boxspacing}
+\prompt{In}{incolor}{39}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} WTP = average product\PYZus{}fe \PYZhy{} store\PYZus{}brand}
 \PY{n}{beta\PYZus{}product} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
@@ -900,7 +906,7 @@ the new product at a price of
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{13}{\boxspacing}
+\prompt{In}{incolor}{40}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} pull coefficients for use in calculating shares}
 \PY{n}{beta\PYZus{}prom} \PY{o}{=} \PY{n}{logit\PYZus{}modelb\PYZus{}iv}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{prom}
@@ -915,7 +921,7 @@ the new product at a price of
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{41}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} recalculate market shares with new good}
 \PY{c+c1}{\PYZsh{} calculate logit share numerator for each good}
@@ -934,7 +940,7 @@ the new product at a price of
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{15}{\boxspacing}
+\prompt{In}{incolor}{42}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} calculate total customers across all stores in all weeks}
 \PY{n}{total\PYZus{}traffic} \PY{o}{=} \PY{p}{(}\PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{store}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
@@ -944,14 +950,14 @@ the new product at a price of
 \PY{n}{sales\PYZus{}new} \PY{o}{=} \PY{n}{new\PYZus{}market\PYZus{}shares} \PY{o}{*} \PY{n}{total\PYZus{}traffic}
 \PY{n}{old\PYZus{}market\PYZus{}shares} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{share}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
 
-\PY{c+c1}{\PYZsh{}add in value of 0 for new product before it was introduced}
+\PY{c+c1}{\PYZsh{} add in value of 0 for new product before it was introduced}
 \PY{n}{old\PYZus{}market\PYZus{}shares}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} 
 \PY{n}{sales\PYZus{}old} \PY{o}{=} \PY{n}{old\PYZus{}market\PYZus{}shares} \PY{o}{*} \PY{n}{total\PYZus{}traffic}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{43}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} put it all into a table }
 \PY{n}{otc\PYZus{}new} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
@@ -962,14 +968,14 @@ the new product at a price of
     \PY{n}{index} \PY{o}{=} \PY{n}{new\PYZus{}market\PYZus{}shares}\PY{o}{.}\PY{n}{index}
 \PY{p}{)}  
 
-\PY{c+c1}{\PYZsh{} Rename the index to \PYZsq{}Products\PYZsq{}}
+\PY{c+c1}{\PYZsh{} rename the index to \PYZsq{}Products\PYZsq{}}
 \PY{n}{otc\PYZus{}new}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Products}\PY{l+s+s1}{\PYZsq{}}
 \PY{n}{otc\PYZus{}new}
 \end{Verbatim}
 \end{tcolorbox}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{ }{\boxspacing}
+\prompt{Out}{outcolor}{43}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
           Old Shares  Old Sales  New Shares  New Sales
 Products
@@ -988,13 +994,13 @@ Products
 \end{Verbatim}
 \end{tcolorbox}
         
-    \subsubsection{(b) Break down the benefits and costs to the store of
+    \subsubsection{Break down the benefits and costs to the store of
 introducing this new format (assume wholesale price is \$1.00 and there
 are no fixed or other variable costs of the new product
-introduction).}\label{b-break-down-the-benefits-and-costs-to-the-store-of-introducing-this-new-format-assume-wholesale-price-is-1.00-and-there-are-no-fixed-or-other-variable-costs-of-the-new-product-introduction.}
+introduction).}\label{break-down-the-benefits-and-costs-to-the-store-of-introducing-this-new-format-assume-wholesale-price-is-1.00-and-there-are-no-fixed-or-other-variable-costs-of-the-new-product-introduction.}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{17}{\boxspacing}
+\prompt{In}{incolor}{44}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} pull price and cost information and add in the new product}
 \PY{n}{price} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
@@ -1009,7 +1015,7 @@ introduction).}\label{b-break-down-the-benefits-and-costs-to-the-store-of-introd
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{18}{\boxspacing}
+\prompt{In}{incolor}{45}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} calculate profit before and after the new product}
 \PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{otc\PYZus{}new}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
@@ -1027,21 +1033,25 @@ Profit after the new product: 395536.09
 Therefore, introducing the new product changes profit by -46968.2
     \end{Verbatim}
 
-    \subsection{4. Information Intervention}\label{information-intervention}
+    \subsection{Information Intervention}\label{information-intervention}
 
-\subsubsection{The chain of stores you have data from is considering a
+\subsubsection*{The chain of stores you have data from is considering a
 campaign to help educate customers that there is no efficacy difference
 between the brand name and ``store brand''
 drugs.}\label{the-chain-of-stores-you-have-data-from-is-considering-a-campaign-to-help-educate-customers-that-there-is-no-efficacy-difference-between-the-brand-name-and-store-brand-drugs.}
+\addcontentsline{toc}{subsubsection}{The chain of stores you have data
+from is considering a campaign to help educate customers that there is
+no efficacy difference between the brand name and ``store brand''
+drugs.}
 
-    \subsubsection{(a) Assume the campaign increases the WTP for the ``store
+    \subsubsection{Assume the campaign increases the WTP for the ``store
 brands'' by the full absolute value of the ``store brand'' effect you
 estimated in the first part. What is the net benefit and cost to the
 store? To
-consumers?}\label{a-assume-the-campaign-increases-the-wtp-for-the-store-brands-by-the-full-absolute-value-of-the-store-brand-effect-you-estimated-in-the-first-part.-what-is-the-net-benefit-and-cost-to-the-store-to-consumers}
+consumers?}\label{assume-the-campaign-increases-the-wtp-for-the-store-brands-by-the-full-absolute-value-of-the-store-brand-effect-you-estimated-in-the-first-part.-what-is-the-net-benefit-and-cost-to-the-store-to-consumers}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{19}{\boxspacing}
+\prompt{In}{incolor}{46}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} pull fe again (just in case)}
 \PY{n}{beta\PYZus{}product} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
@@ -1054,7 +1064,7 @@ consumers?}\label{a-assume-the-campaign-increases-the-wtp-for-the-store-brands-b
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{20}{\boxspacing}
+\prompt{In}{incolor}{47}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} calculate CS before change}
 \PY{c+c1}{\PYZsh{} calculate logit share numerator for each good \PYZhy{} increase by store brand since consumers received more utility than they realized}
@@ -1066,11 +1076,30 @@ consumers?}\label{a-assume-the-campaign-increases-the-wtp-for-the-store-brands-b
 
 \PY{n}{numerator\PYZus{}before} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{numerator}\PY{p}{)}
 \PY{n}{denominator\PYZus{}before} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{+} \PY{n}{numerator\PYZus{}before}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\PY{n}{numerator\PYZus{}before}\PY{o}{/}\PY{n}{denominator\PYZus{}before}
 \end{Verbatim}
 \end{tcolorbox}
 
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{47}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+1     0.000724
+2     0.000872
+3     0.000545
+4     0.000560
+5     0.000337
+6     0.000149
+7     0.000185
+8     0.000145
+9     0.000371
+10    0.000474
+11    0.000331
+dtype: float64
+\end{Verbatim}
+\end{tcolorbox}
+        
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{21}{\boxspacing}
+\prompt{In}{incolor}{48}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} recalculate WTP without the store\PYZhy{}brand effect}
 \PY{n}{beta\PYZus{}fe}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{o}{=} \PY{n}{beta\PYZus{}fe}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{beta\PYZus{}storebrand}\PY{p}{)}
@@ -1079,7 +1108,7 @@ consumers?}\label{a-assume-the-campaign-increases-the-wtp-for-the-store-brands-b
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{49}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} recalculate market shares with new WTP}
 \PY{c+c1}{\PYZsh{} calculate logit share numerator for each good}
@@ -1095,7 +1124,7 @@ consumers?}\label{a-assume-the-campaign-increases-the-wtp-for-the-store-brands-b
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{30}{\boxspacing}
+\prompt{In}{incolor}{50}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} estimate sales of each good before and after information campaign}
 \PY{n}{new\PYZus{}market\PYZus{}shares} \PY{o}{=} \PY{n}{numerator\PYZus{}after} \PY{o}{/} \PY{n}{denominator\PYZus{}after}
@@ -1106,7 +1135,7 @@ consumers?}\label{a-assume-the-campaign-increases-the-wtp-for-the-store-brands-b
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{51}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} put it all into a table }
 \PY{n}{otc\PYZus{}info} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
@@ -1124,26 +1153,26 @@ consumers?}\label{a-assume-the-campaign-increases-the-wtp-for-the-store-brands-b
 \end{tcolorbox}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{ }{\boxspacing}
+\prompt{Out}{outcolor}{51}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
           Old Shares  Old Sales  New Shares  New Sales
 Products
-1           0.000771   51361.08    0.000724   48267.20
-2           0.000947   63119.78    0.000872   58119.73
-3           0.000621   41386.19    0.000545   36305.22
-4           0.000642   42747.23    0.000560   37287.43
-5           0.000424   28240.52    0.000337   22440.23
-6           0.000197   13110.40    0.000149    9904.59
-7           0.000218   14557.37    0.000185   12330.37
-8           0.000184   12246.41    0.000145    9692.42
-9           0.000430   28681.10    0.000371   24697.46
-10          0.000495   33000.98    0.000474   31609.69
-11          0.000408   27204.97    0.000331   22030.82
+1           0.000771   51361.08    0.000724   48255.30
+2           0.000947   63119.78    0.000872   58105.40
+3           0.000621   41386.19    0.000545   36296.27
+4           0.000642   42747.23    0.000559   37278.23
+5           0.000424   28240.52    0.000337   22434.70
+6           0.000197   13110.40    0.000149    9902.15
+7           0.000218   14557.37    0.000185   12327.33
+8           0.000184   12246.41    0.000145    9690.03
+9           0.000430   28681.10    0.000371   24691.37
+10          0.000495   33000.98    0.000620   41280.37
+11          0.000408   27204.97    0.000432   28770.93
 \end{Verbatim}
 \end{tcolorbox}
         
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{32}{\boxspacing}
+\prompt{In}{incolor}{52}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} pull price and cost information and add in the new product}
 \PY{n}{price} \PY{o}{=} \PY{n}{otc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
@@ -1156,7 +1185,7 @@ Products
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{33}{\boxspacing}
+\prompt{In}{incolor}{53}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} calculate profit before and after the new product}
 \PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Profit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{otc\PYZus{}info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Old Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
@@ -1170,12 +1199,12 @@ Products
 
     \begin{Verbatim}[commandchars=\\\{\}]
 Profit before the new product: 442504.29
-Profit after the new product: 385015.71
-Therefore, introducing the new product changes profit by -57488.58
+Profit after the new product: 411888.37
+Therefore, introducing the new product changes profit by -30615.92
     \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{34}{\boxspacing}
+\prompt{In}{incolor}{54}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} CS = log(denominator)/alpha}
 \PY{n}{CS\PYZus{}before} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{denominator\PYZus{}before}\PY{p}{)} \PY{o}{/} \PY{n}{alpha}
@@ -1188,7 +1217,7 @@ Therefore, introducing the new product changes profit by -57488.58
 
     \begin{Verbatim}[commandchars=\\\{\}]
 Consumer Surplus before the information campaign is -0.008898765290945184
-Consumer Surplus after the information campaign is -0.008898765290945184
+Consumer Surplus after the information campaign is -0.009365139219042605
     \end{Verbatim}
 
 

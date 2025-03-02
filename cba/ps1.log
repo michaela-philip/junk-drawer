@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.19)  19 FEB 2025 12:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.19)  1 MAR 2025 14:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1176,43 +1176,42 @@ Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \pandoc@box=\box89
 \Wrappedcontinuationbox=\box90
 \Wrappedvisiblespacebox=\box91
-Package hyperref Info: Option `breaklinks' set `true' on input line 402.
-Package hyperref Info: Option `colorlinks' set `true' on input line 402.
+Package hyperref Info: Option `breaklinks' set `true' on input line 406.
+Package hyperref Info: Option `colorlinks' set `true' on input line 406.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count332
 \l__pdf_internal_box=\box92
 )
-No file ps1.aux.
+(./ps1.aux)
 \openout1 = `ps1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 409.
-LaTeX Font Info:    ... okay on input line 409.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 409.
-LaTeX Font Info:    ... okay on input line 409.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 409.
-LaTeX Font Info:    ... okay on input line 409.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 409.
-LaTeX Font Info:    ... okay on input line 409.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 409.
-LaTeX Font Info:    ... okay on input line 409.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 409.
-LaTeX Font Info:    ... okay on input line 409.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 409.
-LaTeX Font Info:    ... okay on input line 409.
-LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 409.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 413.
+LaTeX Font Info:    ... okay on input line 413.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 413.
+LaTeX Font Info:    ... okay on input line 413.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 413.
+LaTeX Font Info:    ... okay on input line 413.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 413.
+LaTeX Font Info:    ... okay on input line 413.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 413.
+LaTeX Font Info:    ... okay on input line 413.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 413.
+LaTeX Font Info:    ... okay on input line 413.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 413.
+LaTeX Font Info:    ... okay on input line 413.
+LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 413.
 LaTeX Font Info:    Trying to load font information for LGR+cmr on input line 4
-09.
-(/usr/local/texlive/2024/texmf-dist/tex/latex/cbfonts-fd/lgrcmr.fd
+13.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/cbfonts-fd/lgrcmr.fd
 File: lgrcmr.fd 2017/07/29 v1.2 Greek European Computer Regular
 )
-LaTeX Font Info:    ... okay on input line 409.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 409.
-LaTeX Font Info:    ... okay on input line 409.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 409.
-LaTeX Font Info:    ... okay on input line 409.
-
+LaTeX Font Info:    ... okay on input line 413.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 413.
+LaTeX Font Info:    ... okay on input line 413.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 413.
+LaTeX Font Info:    ... okay on input line 413.
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count333
@@ -1279,15 +1278,15 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \Upsilon on input line 409.
-LaTeX Info: Redefining \Omega on input line 409.
-LaTeX Info: Redefining \alpha on input line 409.
-LaTeX Info: Redefining \epsilon on input line 409.
-LaTeX Info: Redefining \eta on input line 409.
-LaTeX Info: Redefining \iota on input line 409.
-LaTeX Info: Redefining \rho on input line 409.
-LaTeX Info: Redefining \upsilon on input line 409.
-LaTeX Info: Redefining \omega on input line 409.
+LaTeX Info: Redefining \Upsilon on input line 413.
+LaTeX Info: Redefining \Omega on input line 413.
+LaTeX Info: Redefining \alpha on input line 413.
+LaTeX Info: Redefining \epsilon on input line 413.
+LaTeX Info: Redefining \eta on input line 413.
+LaTeX Info: Redefining \iota on input line 413.
+LaTeX Info: Redefining \rho on input line 413.
+LaTeX Info: Redefining \upsilon on input line 413.
+LaTeX Info: Redefining \omega on input line 413.
    defining Unicode char U+0393 (decimal 915)
    defining Unicode char U+0394 (decimal 916)
    defining Unicode char U+0398 (decimal 920)
@@ -1329,39 +1328,39 @@ LaTeX Info: Redefining \omega on input line 409.
    defining Unicode char U+03DD (decimal 989)
    defining Unicode char U+03F1 (decimal 1009)
    defining Unicode char U+03F5 (decimal 1013)
-Package hyperref Info: Link coloring ON on input line 409.
+Package hyperref Info: Link coloring ON on input line 413.
+(./ps1.out) (./ps1.out)
 \@outlinefile=\write5
 \openout5 = `ps1.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 411
+LaTeX Font Info:    Trying to load font information for U+msa on input line 415
 .
+
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 411
+LaTeX Font Info:    Trying to load font information for U+msb on input line 415
 .
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+rsfs on input line 41
-1.
+5.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-
-LaTeX Warning: No \author given.
-
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 4
-42.
+40.
+
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 444.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 442.
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-449.
+447.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
@@ -1381,30 +1380,114 @@ Type  H <return>  for immediate help.
 l.552 ϵ\_\{ijt\} \$ (1)}
                          \label{u_ijt-ux3b1p_jt-x_jtux3b2-ux3be_jt-ux3f5_ijt-1}
 
-? exit
- 
+? 
+
+! Package greek-fontenc Error: character lunate epsilon symbol not available in
+ text mode.
+
+See the greek-fontenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.552 ϵ\_\{ijt\} \$ (1)}
+                         \label{u_ijt-ux3b1p_jt-x_jtux3b2-ux3be_jt-ux3f5_ijt-1}
+
+? 
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 564.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 564.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 564.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 564.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 564.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 564.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 564.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 564.
+
+[3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] (./ps1.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-02-20>
+ ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `ps1.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `ps1.out':
+(rerunfilecheck)             Before: A7D3C5D41FB3DC176B5E209801F9D4A0;2789
+(rerunfilecheck)             After:  9E5B99980489031C283D2B990002E4E2;13054.
+ ) 
 Here is how much of TeX's memory you used:
- 27267 strings out of 474116
- 503860 string characters out of 5743682
- 2072187 words of memory out of 5000000
- 49158 multiletter control sequences out of 15000+600000
- 571833 words of font info for 75 fonts, out of 8000000 for 9000
+ 27387 strings out of 474116
+ 507672 string characters out of 5743682
+ 2083187 words of memory out of 5000000
+ 49241 multiletter control sequences out of 15000+600000
+ 572705 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 101i,6n,107p,496b,749s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
-usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></us
-r/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/
-local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/lo
-cal/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/loca
-l/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfit1095.pfb></usr/local/
-texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/te
-xlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texl
-ive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texliv
-e/2024/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on ps1.pdf (2 pages, 173968 bytes).
+ 101i,7n,107p,1196b,749s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{subsubsection.1.2.2} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{subsubsection.1.2.1} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{subsection.1.2} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{subsection.1.1} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{section.1} has been referenced but does not exist, 
+replaced by a fixed one
+
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
+sr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
+/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
+local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/lo
+cal/texlive/2024/texmf-dist/fonts/type1/public/cbfonts/grxn1095.pfb></usr/local
+/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/t
+exlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/tex
+live/2024/texmf-dist/fonts/type1/public/cm-super/sfit1095.pfb></usr/local/texli
+ve/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive
+/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2
+024/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/202
+4/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on ps1.pdf (13 pages, 257100 bytes).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
- 53 compressed objects within 1 object stream
- 8 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 190 PDF objects out of 1000 (max. 8388607)
+ 145 compressed objects within 2 object streams
+ 38 named destinations out of 1000 (max. 500000)
+ 53 words of extra memory for PDF output out of 10000 (max. 10000000)
 

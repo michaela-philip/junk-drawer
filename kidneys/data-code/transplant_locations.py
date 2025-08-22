@@ -7,10 +7,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import geopandas as gpd
-from geopy.geocoders import Nominatim
+from geopy.geocoders import ArcGIS
 from geopy.extra.rate_limiter import RateLimiter
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
+import os
+from tqdm import tqdm
+tqdm.pandas()
 
-def scrape_locations(url):
+def scrape_locations_optn(url):
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     driver.get(url)
     wait = WebDriverWait(driver, 10)
@@ -61,25 +65,73 @@ def scrape_locations(url):
         transplant_centers.append((name, location))
 
     driver.quit()
-    transplant_centers = pd.DataFrame(transplant_centers, columns=['name', 'location'])
+    df = pd.DataFrame(transplant_centers, columns=['name', 'location'])
     print('scraping done!')
-    return transplant_centers
+    df.to_csv('data/input/transplant_centers_optn.csv', index = False)
+    return df
 
-transplant_centers = scrape_locations('https://optn.transplant.hrsa.gov/about/search-membership/')
 
-transplant_centers[['abbrev', 'name']] = transplant_centers['name'].str.split(' - ', n = 1, expand = True)
+def scrape_locations_srtr(url):
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    driver.get(url)
+    wait = WebDriverWait(driver, 10)
+
+    transplant_centers = []
+    while True:
+        # identify list of transplant centers
+        table = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'ul.searchResults.vr_2n')))
+        lis = table.find_elements(By.CLASS_NAME, 'searchResults-item')
+
+        for li in lis:
+            name = li.find_element(By.CSS_SELECTOR, 'h5.hdg.hdg_h5').text
+            location = li.find_element(By.CLASS_NAME, 'mix-text_weightBold').text
+            transplant_centers.append((name, location))
+        
+        try:
+            next_button = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'next')))
+            next_button.click()
+            print('next page')
+            time.sleep(2)
+        except (NoSuchElementException, TimeoutException):
+            break
+
+    driver.quit()
+
+    df = pd.DataFrame(transplant_centers, columns=['name', 'location'])
+    print('scraping done!')
+    df.to_csv('data/input/transplant_centers_srtr.csv', index = False)
+    return df
+    
+
+def geocode_centers(df):
+    geolocator = ArcGIS(user_agent="clinic_locator", timeout=10)
+    geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1, max_retries=3, error_wait_seconds=5)
+    locations = df['address'].progress_apply(geocode)
+
+    df['longitude'] = locations.apply(lambda loc: loc.longitude if loc else None)
+    df['latitude'] = locations.apply(lambda loc: loc.latitude if loc else None)
+    print(df['longitude'].isna().sum(), "locations could not be geocoded.")
+
+    df = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.longitude, df.latitude))
+    df.to_csv('data/input/transplant_locations.csv', index=False)
+    df.to_file('data/input/transplant_locations.geojson', driver='GeoJSON')
+    return df
+
+##########################################################################################################
+
+if not os.path.exists('data/input/transplant_centers_optn.csv'):
+    transplant_centers_optn = scrape_locations_optn('https://optn.transplant.hrsa.gov/about/search-membership/')
+else:
+    transplant_centers_optn = pd.read_csv('data/input/transplant_centers_optn.csv')
+if not os.path.exists('data/input/transplant_centers_srtr.csv'):
+    transplant_centers_srtr = scrape_locations_srtr('https://www.srtr.org/transplant-centers/?organ=kidney')
+else:
+    transplant_centers_srtr = pd.read_csv('data/input/transplant_centers_srtr.csv')
+
+transplant_centers_optn[['abbrev', 'name']] = transplant_centers_optn['name'].str.split(' - ', n = 1, expand = True)
+
+transplant_centers = pd.merge(transplant_centers_optn, transplant_centers_srtr, on = ['name', 'location'], how = 'outer')
 transplant_centers['address'] = transplant_centers['name'].str.cat(transplant_centers['location'], sep=', ', na_rep = '')
 
-geolocator = Nominatim(user_agent="clinic_locator", timeout=10)
-geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1, max_retries=3, error_wait_seconds=5)
-locations = transplant_centers['address'].apply(geocode)
-
-transplant_centers['longitude'] = locations.apply(lambda loc: loc.longitude if loc else None)
-transplant_centers['latitude'] = locations.apply(lambda loc: loc.latitude if loc else None)
-transplant_centers.to_csv('data/input/transplant_locations.csv', index = False)
-
-print(transplant_centers['longitude'].isna().sum(), "locations could not be geocoded.")
-
-transplant_centers = gpd.GeoDataFrame(transplant_centers, geometry=gpd.points_from_xy(transplant_centers.longitude, transplant_centers.latitude))
-transplant_centers.to_file('data/input/transplant_locations.geojson', driver='GeoJSON') 
+transplant_centers = geocode_centers(transplant_centers)
 print(transplant_centers.info())

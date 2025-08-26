@@ -21,6 +21,7 @@ ckd = ckd[~ckd['StateAbbr'].isin(['AK', 'HI'])]
 counties = gpd.read_file('data/input/UScounties/UScounties.shp')
 counties['FIPS'] = counties['FIPS'].astype(int)
 counties = counties[~counties['STATE_NAME'].isin(['Alaska', 'Hawaii'])]
+counties.to_pickle('data/input/counties.pkl')
 
 ckd = pd.merge(ckd, counties, left_on = 'CountyFIPS', right_on = 'FIPS', how = 'left')
 ckd = gpd.GeoDataFrame(ckd, geometry='geometry')
@@ -55,10 +56,21 @@ census = census.groupby('fips').agg('mean').reset_index()
 
 # combine all data into one df
 df = census.merge(ckd, left_on = 'fips', right_on = 'FIPS', how = 'outer')
-df = ckd.sjoin(dialysis_locations, how = 'left', predicate = 'contains')
-df = df.drop(columns = ['index_right'])
-df = df.sjoin(transplant_locations, how = 'left', predicate = 'contains')
+df = gpd.GeoDataFrame(df, geometry='geometry')
 
-# create some dummy variables
-df['dialysis_clinic'] = np.where(df['Facility Name'].notna(), 1, 0)
-df['transplant_center'] = np.where(df['name'].notna(), 1, 0)
+# spatial join to get location counts, then merge in counts
+dialysis = df.sjoin(dialysis_locations, how = 'left', predicate = 'contains')
+dialysis_counts = dialysis.groupby('FIPS')['Facility Name'].count().reset_index(name='dialysis_count')
+df = df.merge(dialysis_counts, on = 'FIPS', how = 'left')
+df['dialysis_count'] = df['dialysis_count'].fillna(0)
+
+transplant = df.sjoin(transplant_locations, how = 'left', predicate = 'contains')
+transplant_counts = transplant.groupby('FIPS')['name'].count().reset_index(name='transplant_count')
+df = df.merge(transplant_counts, on = 'FIPS', how = 'left') 
+df['transplant_count'] = df['transplant_count'].fillna(0)
+
+# dummy variable for dialysis or transplant presence
+df['any_dialysis'] = np.where(df['dialysis_count'] > 0, 1, 0)
+df['any_transplant'] = np.where(df['transplant_count'] > 0, 1, 0)
+
+df.to_pickle('data/input/cleaned_data.pkl')

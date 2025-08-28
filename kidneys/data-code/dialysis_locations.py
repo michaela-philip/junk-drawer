@@ -42,4 +42,6 @@ unique_addresses['latitude'] = unique_addresses['location'].apply(lambda loc: lo
 print(unique_addresses['location'].isna().sum(), "locations could not be geocoded.")
 
 dialysis_panel = dialysis_panel.merge(unique_addresses[['address', 'longitude', 'latitude']], on = ['address'], how = 'left')
+dialysis_panel = gpd.GeoDataFrame(dialysis_panel, geometry=gpd.points_from_xy(dialysis_panel.longitude, dialysis_panel.latitude))
 dialysis_panel.to_pickle('data/input/dialysis_panel_locations.pkl')
+dialysis_panel.to_file('data/input/dialysis_panel_locations.geojson', driver = 'GeoJSON')

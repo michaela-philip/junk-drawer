@@ -43,7 +43,7 @@ def clean_waitlist(df):
     df[cols_to_int] = df[cols_to_int].astype(int)
     df = df.melt(id_vars = 'State', var_name = 'Year', value_name = 'Waitlist_Additions').iloc[1:].sort_values(by = 'Year')
     abbrevs = pd.read_csv('data/input/50States.csv')
-    df = df.merge(abbrevs[['State', 'Abbr']], on = 'State', how = 'left')
+    df = df.merge(abbrevs[['State', 'Abbr', 'Region']], on = 'State', how = 'left')
     df.to_pickle('data/intermed/waitlist.pkl')
     print('waitlist data cleaned')
     return df

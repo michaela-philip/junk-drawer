@@ -5,7 +5,7 @@ import numpy as np
 def clean_transplant(df):
     df[['city', 'state']] = df['location'].str.split(', ', expand=True)
     df = df[~df['state'].isin(['AK', 'HI'])]
-    df.to_pickle('data/input/transplant_locations.pkl')
+    df.to_pickle('data/intermed/transplant_locations.pkl')
     print('transplant data cleaned')
     return df
 
@@ -15,9 +15,10 @@ def clean_dialysis(df):
     df['Chain Organization'] = df['Chain Organization'].str.lower()
     df['davita'] = np.where(df['Chain Organization'] == 'davita', 1, 0)
     df['fresenius'] = np.where(df['Chain Organization'] == 'fresenius medical care', 1, 0)
-    df_state = df.groupby(['State', 'year']).agg('count')
-    df_state.to_pickle('data/input/dialysis_state_panel.pkl')
-    df.to_pickle('data/input/dialysis_panel_locations.pkl')
+    df_state = df.groupby(['State', 'year']).agg({
+        'Facility Name':'count', 'chain':'sum', 'davita':'sum', 'fresenius':'sum'}).reset_index()
+    df_state.to_pickle('data/intermed/dialysis_state_panel.pkl')
+    df.to_pickle('data/intermed/dialysis_panel_locations.pkl')
     print('dialysis panel cleaned')
     return df
 
@@ -27,12 +28,12 @@ def clean_county_ckd(ckd, counties):
 
     counties['FIPS'] = counties['FIPS'].astype(int)
     counties = counties[~counties['STATE_NAME'].isin(['Alaska', 'Hawaii'])]
-    counties.to_pickle('data/input/counties.pkl')
+    counties.to_pickle('data/intermed/counties.pkl')
 
     ckd = pd.merge(ckd, counties, left_on = 'CountyFIPS', right_on = 'FIPS', how = 'left')
     ckd = gpd.GeoDataFrame(ckd, geometry='geometry')
     ckd = ckd.drop(columns = ['NAME', 'STATE_NAME', 'CNTY_FIPS'])
-    ckd.to_pickle('data/input/ckd_county.pkl')
+    ckd.to_pickle('data/intermed/ckd_county.pkl')
     print('ckd data cleaned')
     return ckd, counties
 
@@ -40,8 +41,10 @@ def clean_waitlist(df):
     df = df.replace({',':''}, regex=True).rename(columns = {'Unnamed: 0': 'State'}).drop(columns = ['Unnamed: 1', 'To Date'])
     cols_to_int = df.columns.drop('State')
     df[cols_to_int] = df[cols_to_int].astype(int)
-    df = df.melt(id_vars = 'State', var_name = 'Year', value_name = 'Waitlist_Additions').iloc[1:].set_index(['State', 'Year']).sort_index()
-    df.to_pickle('data/input/waitlist.pkl')
+    df = df.melt(id_vars = 'State', var_name = 'Year', value_name = 'Waitlist_Additions').iloc[1:].sort_values(by = 'Year')
+    abbrevs = pd.read_csv('data/input/50States.csv')
+    df = df.merge(abbrevs[['State', 'Abbr']], on = 'State', how = 'left')
+    df.to_pickle('data/intermed/waitlist.pkl')
     print('waitlist data cleaned')
     return df
 
@@ -68,7 +71,7 @@ def clean_census(df):
     df['fips'] = df['fips'].astype(int)
     df = df.groupby('fips').agg('mean').reset_index()
     print('census data cleaned')
-    df.to_pickle('data/input/census_county.pkl')
+    df.to_pickle('data/intermed/census_county.pkl')
     return df
 
 def create_snapshot(census, ckd, dialysis_panel, transplant_locations):
@@ -91,7 +94,7 @@ def create_snapshot(census, ckd, dialysis_panel, transplant_locations):
     # dummy variable for dialysis or transplant presence
     df['any_dialysis'] = np.where(df['dialysis_count'] > 0, 1, 0)
     df['any_transplant'] = np.where(df['transplant_count'] > 0, 1, 0)
-    df.to_pickle('data/input/snapshot_2025.pkl')
+    df.to_pickle('data/intermed/snapshot_2025.pkl')
     print('snapshot created')
     return df
 

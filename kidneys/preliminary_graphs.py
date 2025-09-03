@@ -6,7 +6,7 @@ import numpy as np
 dialysis_state = pd.read_pickle('data/intermed/dialysis_state_panel.pkl')
 waitlist = pd.read_pickle('data/intermed/waitlist.pkl')
 
-dialysis_state = dialysis_state.rename(columns = {'Facility Name':'facilities', 'State':'state', 'Year':'year'})
+dialysis_state = dialysis_state.rename(columns = {'count':'facilities', 'State':'state', 'Year':'year'})
 waitlist = waitlist.rename(columns = {'Waitlist_Additions':'waitlist_additions', 'Abbr':'state', 'Year':'year'})
 waitlist['year'] = waitlist['year'].astype(int)
 dialysis_state = dialysis_state.merge(waitlist, on = ['state', 'year'], how = 'left')

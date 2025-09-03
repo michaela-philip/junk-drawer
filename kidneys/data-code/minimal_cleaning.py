@@ -10,13 +10,14 @@ def clean_transplant(df):
     return df
 
 def clean_dialysis(df):
-    df = df[~df['State'].isin(['AK', 'HI'])]
+    df = df[~df['State'].isin(['AK', 'HI', 'GU', 'VI', 'MP', 'AS', 'PR'])]
     df['chain'] = np.where(df['Chain Owned'] == 'Yes', 1, 0)
     df['Chain Organization'] = df['Chain Organization'].str.lower()
     df['davita'] = np.where(df['Chain Organization'] == 'davita', 1, 0)
     df['fresenius'] = np.where(df['Chain Organization'] == 'fresenius medical care', 1, 0)
+    df = df.assign(count = 1)
     df_state = df.groupby(['State', 'year']).agg({
-        'Facility Name':'count', 'chain':'sum', 'davita':'sum', 'fresenius':'sum'}).reset_index()
+        'count':'sum', 'chain':'sum', 'davita':'sum', 'fresenius':'sum'}).reset_index()
     df_state.to_pickle('data/intermed/dialysis_state_panel.pkl')
     df.to_pickle('data/intermed/dialysis_panel_locations.pkl')
     print('dialysis panel cleaned')

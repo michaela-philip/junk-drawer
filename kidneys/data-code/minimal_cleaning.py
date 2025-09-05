@@ -4,7 +4,7 @@ import numpy as np
 
 def clean_transplant(df):
     df[['city', 'state']] = df['location'].str.split(', ', expand=True)
-    df = df[~df['state'].isin(['AK', 'HI'])]
+    df = df[~df['state'].isin(['AK', 'HI', 'GU', 'VI', 'MP', 'AS', 'PR'])]
     df.to_pickle('data/intermed/transplant_locations.pkl')
     print('transplant data cleaned')
     return df

@@ -40,4 +40,16 @@ high_ckd_trend = df.groupby('year').agg({'chain':'sum', 'davita':'sum', 'freseni
 high_ckd_trend['pct_chain'] = high_ckd_trend['chain'] / high_ckd_trend['count']
 high_ckd_trend['pct_big2'] = (high_ckd_trend['davita'] + high_ckd_trend['fresenius']) / high_ckd_trend['count']
 high_ckd_trend = high_ckd_trend.rename(columns = column_dict)
-export_latex_table(high_ckd_trend, columns = columns, caption = 'Trends in Dialysis Ownership (High CKD Counties)', label = 'tab:high_ckd_dialysis_trends')
+export_latex_table(high_ckd_trend, columns = columns, caption = 'Trends in Dialysis Ownership (High CKD Counties)', 
+                   label = 'tab:high_ckd_dialysis_trends')
+
+# look at high dialysis center counties over time
+dialysis_county['high_dialysis'] = np.where(dialysis_county['count'] > dialysis_county['count'].quantile(0.75), 1, 0)
+high_dialysis = dialysis_county[dialysis_county['high_dialysis'] == 1]
+
+high_dialysis = df.groupby('year').agg({'chain':'sum', 'davita':'sum', 'fresenius':'sum', 'count':'sum'}).reset_index()
+high_dialysis['pct_chain'] = high_dialysis['chain'] / high_dialysis['count']
+high_dialysis['pct_big2'] = (high_dialysis['davita'] + high_dialysis['fresenius']) / high_dialysis['count']
+high_dialysis = high_dialysis.rename(columns = column_dict)
+export_latex_table(high_dialysis, columns = columns, caption = 'Trends in Dialysis Ownership (High Dialysis Counties)', 
+                   label = 'tab:high_dialysis_trends')

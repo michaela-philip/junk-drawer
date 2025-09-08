@@ -10,6 +10,7 @@ dialysis_state = dialysis_state.rename(columns = {'count':'facilities', 'State':
 waitlist = waitlist.rename(columns = {'Waitlist_Additions':'waitlist_additions', 'Abbr':'state', 'Year':'year'})
 waitlist['year'] = waitlist['year'].astype(int)
 dialysis_state = dialysis_state.merge(waitlist, on = ['state', 'year'], how = 'left')
+dialysis_state = dialysis_state[~dialysis_state['year'].isin([2025])]
 
 ### REGIONAL LEVEL ###
 df = dialysis_state.groupby(['Region', 'year']).agg('sum').reset_index().drop(columns = ['state', 'State'])

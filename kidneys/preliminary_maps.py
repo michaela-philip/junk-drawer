@@ -1,11 +1,10 @@
 import pandas as pd
-import numpy as np
-import geopandas as gpd
-from collections import defaultdict
 import matplotlib.pyplot as plt
 
 dialysis_panel = pd.read_pickle('data/intermed/dialysis_panel_locations.pkl')
 counties = pd.read_pickle('data/intermed/counties.pkl')
+transplant = pd.read_pickle('data/intermed/transplant_locations.pkl')
+snapshot = pd.read_pickle('data/intermed/snapshot_2025.pkl')
 
 # dissolve to county level
 dialysis_county = dialysis_panel.dissolve(by = ['County', 'year'], aggfunc = 'sum').reset_index()
@@ -32,7 +31,7 @@ plt.subplots_adjust(top = 0.85)
 fig.tight_layout()
 fig.suptitle('Dialysis Facilities over Time', y = 1)
 plt.savefig('figures/facilities_map_trend.jpg')
-plt.show()
+# plt.show()
 
 # percent chains
 fig, axs = plt.subplots(2, 2, figsize = (12, 8))
@@ -48,7 +47,7 @@ plt.subplots_adjust(top = 0.85)
 fig.tight_layout()
 fig.suptitle('Dialysis Chains over Time', y = 1)
 plt.savefig('figures/pct_chain_map_trend.jpg')
-plt.show()
+# plt.show()
 
 # percent chains
 fig, axs = plt.subplots(2, 2, figsize = (12, 8))
@@ -64,4 +63,41 @@ plt.subplots_adjust(top = 0.85)
 fig.tight_layout()
 fig.suptitle('Davita/Fresenius Facilities over Time', y = 1)
 plt.savefig('figures/pct_chain_map_trend.jpg')
+# plt.show()
+
+# dialysis facilities and transplant centers
+fig, ax = plt.subplots()
+data = dialysis_panel.loc[dialysis_panel['year'] == 2025]
+counties.boundary.plot(ax = ax, linewidth = 0.2, zorder = 3, color = 'black')
+data.plot(ax = ax, color = 'tab:red', legend = True, markersize = 2, zorder = 1, label = 'Dialysis Centers')
+transplant.plot(ax = ax, color = 'tab:blue', legend = True, markersize = 5, zorder = 2, label = 'Transplant Centers')
+legend = ax.legend(loc = 'lower left')
+ax.set_axis_off()
+fig.tight_layout()
+fig.suptitle('Dialysis and Transplant Centers (2025)')
+plt.savefig('figures/dialysis_transplant_map.jpg')
+plt.show()
+
+# snapshot
+fig, ax = plt.subplots()
+counties.boundary.plot(ax = ax, linewidth = 0.2, zorder = 4, color = 'black')
+counties.plot(ax = ax, linewidth = 0.2, color = 'lightgrey', zorder = 1)
+snapshot.plot(ax = ax, cmap = 'Blues', column = 'KIDNEY_CrudePrev', zorder = 2)
+transplant.plot(ax = ax, color = 'gold', legend = True, markersize = 5, marker = '*', zorder = 3, label = 'Transplant Centers')
+data = dialysis_panel.loc[dialysis_panel['year'] == 2025]
+data.plot(ax = ax, color = 'tab:red', legend = True, markersize = 0.5, zorder = 2, label = 'Dialysis Centers')
+legend = ax.legend(loc = 'lower left')
+# add colorbar for CKD prevalence
+sm = plt.cm.ScalarMappable(
+    cmap='Blues',
+    norm=plt.Normalize(vmin=snapshot['KIDNEY_CrudePrev'].min(),
+                       vmax=snapshot['KIDNEY_CrudePrev'].max())
+)
+sm._A = []  # needed for matplotlib < 3.6
+cbar = fig.colorbar(sm, ax=ax, orientation = 'horizontal')
+cbar.set_label('CKD Prevalence (%)')
+ax.set_axis_off()
+fig.tight_layout()
+fig.suptitle('CKD Prevalence, Dialysis and Transplant Centers (2025)')
+plt.savefig('figures/snapshot_map.jpg')
 plt.show()

@@ -76,21 +76,21 @@ def clean_census(df):
     return df
 
 def create_snapshot(census, ckd, dialysis_panel, transplant_locations):
-    df = census.merge(ckd, left_on = 'fips', right_on = 'FIPS', how = 'outer')
-    df = gpd.GeoDataFrame(df, geometry='geometry')
+    # df = census.merge(ckd, left_on = 'fips', right_on = 'FIPS', how = 'outer')
+    df = gpd.GeoDataFrame(ckd, geometry='geometry')
 
     # dialysis counts
     dialysis_2025 = dialysis_panel[dialysis_panel['year'] == 2025]
     dialysis = df.sjoin(dialysis_2025, how = 'left', predicate = 'contains')
-    dialysis_counts = dialysis.groupby('FIPS')['Facility Name'].count().reset_index(name='dialysis_count')
+    dialysis_counts = dialysis.groupby('FIPS')['count'].agg('sum').reset_index(name='dialysis_count')
     df = df.merge(dialysis_counts, on = 'FIPS', how = 'left')
-    df['dialysis_count'] = df['dialysis_count'].fillna(0, inplace=True)
+    # df['dialysis_count'] = df['dialysis_count'].fillna(0, inplace=True)
 
     # transplant counts
     transplant = df.sjoin(transplant_locations, how = 'left', predicate = 'contains')
     transplant_counts = transplant.groupby('FIPS')['name'].count().reset_index(name='transplant_count')
     df = df.merge(transplant_counts, on = 'FIPS', how = 'left') 
-    df['transplant_count'] = df['transplant_count'].fillna(0, inplace=True)
+    # df['transplant_count'] = df['transplant_count'].fillna(0, inplace=True)
 
     # dummy variable for dialysis or transplant presence
     df['any_dialysis'] = np.where(df['dialysis_count'] > 0, 1, 0)
@@ -114,4 +114,4 @@ ckd, counties = clean_county_ckd(ckd, counties)
 census_county = clean_census(census)
 waitlist = clean_waitlist(waitlist)
 
-# snapshot = create_snapshot(census_county, ckd, dialysis_panel, transplant_locations)
+snapshot = create_snapshot(census_county, ckd, dialysis_panel, transplant_locations)
